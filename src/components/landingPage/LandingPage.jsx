@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import CookieBanner from "../CookieBanner";  // Update the path accordingly
 // import PageHead from "../PageHead";
-import axios from 'axios';
+import axios from '/src/utils/axiosConfig';
 
 const LandingPage = ({ onCookieAcceptance }) => {
 
@@ -11,12 +11,15 @@ const LandingPage = ({ onCookieAcceptance }) => {
     useEffect(() => {
         const userAcceptedCookies = document.cookie.includes('consentCookie=true');
         setShowBanner(!userAcceptedCookies);
+
+        fetchData();
     }, []);
 
     const acceptCookies = () => {
         document.cookie = 'consentCookie=true; max-age=' + (365 * 24 * 60 * 60) + '; path=/';
         setShowBanner(false);
         onCookieAcceptance();
+        fetchData();
     };
 
     const declineCookies = () => {
@@ -24,74 +27,73 @@ const LandingPage = ({ onCookieAcceptance }) => {
         // Additional logic if needed
     };
 
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://localhost:3030/api');
+            console.log('Data from server:', response.data);
+        } catch (error) {
+            console.error('Error fetching data:', error)
+        }
+    }
+
 
     return ( 
         <div>
             {/* <PageHead /> */}
             <CookieBanner showBanner={showBanner} onAccept={acceptCookies} onDecline={declineCookies} />
-            <div className="homepage">
-            <h1>Welcome to the landing Page</h1>
+                <div className="homepage">
+                <h1>Welcome to the landing Page</h1>
 
+                    <div id="page-wrapper">
 
-		{/* <!-- Cookie Consent Banner --> */}
-{/* 		
-        <div id="cookieBanner" style="display: none; position: fixed; top: 0; left: 0; width: 100%; background: #f0f0f0; padding: 10px; text-align: center; z-index: 1000; ">
-            <p>This website uses cookies. By using this site, you agree to our use of cookies.</p>
-            <button className="button style1 small" id="acceptedCookies">Accept</button>
-            <button className="button style1 small" id="declineCookies">Decline</button>
-            <p>Our <a href="/privacyPolicy">Privacy Policy</a></p>
-        </div>
-		 */}
-		<div id="page-wrapper">
+                        {/* <!-- Header --> */}
+                        <section id="header" className="wrapper">
 
-			{/* <!-- Header --> */}
-				<section id="header" className="wrapper">
+                            {/* <!-- Logo --> */}
+                            <div id="logo">
+                                <h1><a href="/">Live Grief Support</a></h1>
+                                <p>A special place to honor our loved ones.</p>					
+                            </div>
 
-					{/* <!-- Logo --> */}
-						<div id="logo">
-							<h1><a href="/">Live Grief Support</a></h1>
-							<p>A special place to honor our loved ones.</p>					
-						</div>
+                            {/* <!-- Nav --> */}
+                            <nav id="nav">
+                                <ul>
+                                    <li className="current"><a href="/chat" className="rules">The Lobby</a></li>
+                                    <li>
+                                        <a href="#" className="loginReqRoute" data-modal="chatRoom">Chat Rooms</a>
+                                        <ul>
+                                            <li><a href="/login" className="rules" data-route="/login">Login</a></li>
+                                            <li><a href="/signuo" className="rules" data-route="/signup">Sign Up</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="/profile" className="loginReqRoute" data-modal="profile" >Profile</a>
+                                        <ul>
+                                            <li><a href="/login" className="rules" data-route="/login" >Login</a></li>
+                                            <li><a href="/signup" className="rules" data-route="/signup">Sign Up</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="/post/newPost/:id" className="loginReqRoute" data-modal="newPost">New Post</a>
+                                        <ul>
+                                            <li><a href="/login" className="rules" data-route="/login">Login</a></li>
+                                            <li><a href="/signup" className="rules" data-route="/signup">Sign Up</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="/feed" className="loginReqRoute" data-modal="feed" >Community</a>
+                                        <ul>
+                                            <li><a href="/login" className="rules" data-route="/login">Login</a></li>
+                                            <li><a href="#" className="rules" data-route="/signup">Sign Up</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="/logout">Logout</a></li>
+                                </ul>
+                            </nav>
 
-					{/* <!-- Nav --> */}
-						<nav id="nav">
-							<ul>
-								<li className="current"><a href="/chat" className="rules">The Lobby</a></li>
-								<li>
-									<a href="#" className="loginReqRoute" data-modal="chatRoom">Chat Rooms</a>
-									<ul>
-										<li><a href="/login" className="rules" data-route="/login">Login</a></li>
-										<li><a href="/signuo" className="rules" data-route="/signup">Sign Up</a></li>
-									</ul>
-								</li>
-                                <li>
-									<a href="/profile" className="loginReqRoute" data-modal="profile" >Profile</a>
-									<ul>
-										<li><a href="/login" className="rules" data-route="/login" >Login</a></li>
-										<li><a href="/signup" className="rules" data-route="/signup">Sign Up</a></li>
-									</ul>
-								</li>
-								<li>
-									<a href="/post/newPost/:id" className="loginReqRoute" data-modal="newPost">New Post</a>
-									<ul>
-										<li><a href="/login" className="rules" data-route="/login">Login</a></li>
-										<li><a href="/signup" className="rules" data-route="/signup">Sign Up</a></li>
-									</ul>
-								</li>
-								<li>
-									<a href="/feed" className="loginReqRoute" data-modal="feed" >Community</a>
-									<ul>
-										<li><a href="/login" className="rules" data-route="/login">Login</a></li>
-										<li><a href="#" className="rules" data-route="/signup">Sign Up</a></li>
-									</ul>
-								</li>
-								<li><a href="/logout">Logout</a></li>
-							</ul>
-						</nav>
-
-				</section>
-         </div>
-    
+                        </section>
+                    </div>
+                
 
             
 

@@ -15,6 +15,7 @@ console.log("from APP userTimeZone=", userTimeZone);
 
 const userLang = navigator.language || navigator.userLanguage;
 console.log("APP userLang=", userLang)
+
 const App = () => {
 
   const [acceptedCookies, setAcceptedCookies] = useState(false);
@@ -47,10 +48,6 @@ const socket = io('http://localhost:3030', {
   
   });
 
-      socket.on('setStatus', (onlineStatus) => {
-      userStatus = onlineStatus;
-      console.log("APP userStatus=", userStatus);
-      });
 
       socket.on('setCookie', (GuestID) => {
           document.cookie = `guestID=${GuestID}; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/`;
@@ -68,10 +65,14 @@ const socket = io('http://localhost:3030', {
       }
   
 
+      socket.on('setStatus', (onlineStatus) => {
+        userStatus = onlineStatus;
+        console.log("APP userStatus=", userStatus, onlineStatus);
+        });
 
-      socket.on('connect', () => {
-        console.log("socket connected", socket)
-      });
+      // socket.on('connect', () => {
+      //   console.log("socket connected", socket)
+      // });
 
       return () => {
         console.log("cleanup function")
