@@ -8,8 +8,13 @@ import CookieBanner from './components/CookieBanner'
 import Lobby from './components/lobby/Lobby';
 import ChatRoom from './components/chatRoom/ChatRoom';
 
+let userStatus;
 
+const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+console.log("from APP userTimeZone=", userTimeZone);
 
+const userLang = navigator.language || navigator.userLanguage;
+console.log("APP userLang=", userLang)
 const App = () => {
 
   const [acceptedCookies, setAcceptedCookies] = useState(false);
@@ -37,14 +42,14 @@ const socket = io('http://localhost:3030', {
   socket.on('connect', () => {
   console.log('Socket connection Status:', socket.connected, socket);
 
-  console.log('socket connected', socket.id);
+  // console.log('socket connected', socket.id);
 
   
   });
 
       socket.on('setStatus', (onlineStatus) => {
       userStatus = onlineStatus;
-      console.log("userStatus=", userStatus);
+      console.log("APP userStatus=", userStatus);
       });
 
       socket.on('setCookie', (GuestID) => {

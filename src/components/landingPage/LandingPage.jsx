@@ -4,14 +4,14 @@ import CookieBanner from "../CookieBanner";  // Update the path accordingly
 // import PageHead from "../PageHead";
 import axios from 'axios';
 
-const LandingPage = ({ onCookieAcceptance, acceptedCookies }) => {
+const LandingPage = ({ onCookieAcceptance }) => {
 
     const [showBanner, setShowBanner] = useState(false);
 
     useEffect(() => {
         const userAcceptedCookies = document.cookie.includes('consentCookie=true');
         setShowBanner(!userAcceptedCookies);
-    }, [acceptedCookies]);
+    }, []);
 
     const acceptCookies = () => {
         document.cookie = 'consentCookie=true; max-age=' + (365 * 24 * 60 * 60) + '; path=/';
@@ -322,6 +322,7 @@ const LandingPage = ({ onCookieAcceptance, acceptedCookies }) => {
 {/* <script src="/scr/styles/js/util.js"></script> */}
 {/* <script src="/scr/styles/js/main.js"></script> */}
 { console.log("script tags") }
+{/* <!-- <script type="module" src="/js/shared.js"></script> --> */}
 {/* <script id="sharedScript"></script> */}
 {/* <script type="module" src="/landingPage.js"></script> */}
 

@@ -5,9 +5,9 @@ import App from './App.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <HelmetProvider>
-    {/* <React.StrictMode> */}
+    <React.StrictMode>
       <App />
-  {/* </React.StrictMode> */}
+  </React.StrictMode>
   </HelmetProvider>,
   
 );

@@ -1,12 +1,13 @@
-// ChatRoom.js
+// ChatRoom.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import Message from '/src/components/Message';
 import axios from 'axios';
-import socket from '/src/utils/socket';
+import { useSocket }  from '/src/utils/socketContext';
 
 
 
 const ChatRoom = ({ data }) => {
+  const socket = useSocket();
   const [messages, setMessages] = useState([]);
   const [roomUsers, setRoomUsers] = useState([]);
   const [newMessage, setNewMessage] = useState('');
