@@ -1,24 +1,34 @@
 // LandingPage.jsx
 import React, { useEffect, useState } from "react";
+import { useCookies } from 'react-cookie'
 import CookieBanner from "../CookieBanner";  // Update the path accordingly
 // import PageHead from "../PageHead";
 import axios from '/src/utils/axiosConfig';
 
-const LandingPage = ({ onCookieAcceptance }) => {
+const LandingPage = ({ connectSocket, acceptedCookies, setAcceptedCookies }) => {
 
     const [showBanner, setShowBanner] = useState(false);
+    const [cookies, setCookie] = useCookies(['consentCookie']);
+
 
     useEffect(() => {
         const userAcceptedCookies = document.cookie.includes('consentCookie=true');
+        console.log("userAcceptedCookie?", userAcceptedCookies)
         setShowBanner(!userAcceptedCookies);
 
-        fetchData();
+        if (!showBanner) {
+            connectSocket();
+            fetchData();
+        }
+       
     }, []);
 
     const acceptCookies = () => {
-        document.cookie = 'consentCookie=true; max-age=' + (365 * 24 * 60 * 60) + '; path=/';
+        setCookie('consentCookie', true, { maxAge: 365 * 24 * 60 * 60, path: '/'});
+
+        // document.cookie = 'consentCookie=true; max-age=' + (365 * 24 * 60 * 60) + '; path=/';
         setShowBanner(false);
-        onCookieAcceptance();
+        connectSocket();
         fetchData();
     };
 
@@ -40,7 +50,7 @@ const LandingPage = ({ onCookieAcceptance }) => {
     return ( 
         <div>
             {/* <PageHead /> */}
-            <CookieBanner showBanner={showBanner} onAccept={acceptCookies} onDecline={declineCookies} />
+            {showBanner && <CookieBanner onAccept={acceptCookies} onDecline={declineCookies} />}
                 <div className="homepage">
                 <h1>Welcome to the landing Page</h1>
 
