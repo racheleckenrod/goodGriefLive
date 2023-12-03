@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, redirect, Route, Routes, useNavigate } from 'react-router-dom';
-import io from  'socket.io-client';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { useSocket } from  './utils/socketContext.jsx';
 import { useCookies } from 'react-cookie';
 import LandingPage from './components/landingPage/LandingPage';
 import './App.css';
@@ -11,12 +11,6 @@ import Lobby from './components/lobby/Lobby';
 import ChatRoom from './components/chatRoom/ChatRoom';
 
 let userStatus;
-
-const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-console.log("from APP userTimeZone=", userTimeZone);
-
-const userLang = navigator.language || navigator.userLanguage;
-console.log("APP userLang=", userLang)
 
 const App = () => {
 
@@ -44,31 +38,22 @@ const App = () => {
     console.log("Cookies updated:", acceptedCookies);
   }, [acceptedCookies]);
 
+  const socket = useSocket();
+
   useEffect(() => {
-
-    if (window.location.pathname === '/privacyPolicy') {
-      return;
-    }
-
-    // if (!acceptedCookies) {
-    //   console.log("navigate cookies?", acceptedCookies)
-    //   navigate('/')
-    // }
-
-
     if (acceptedCookies) {
       console.log("accepted cookies before socket", acceptedCookies)
       // const socket = createSocket();
-
+      socket.connect();
           
-      const socket = io('http://localhost:3030', {
-        reconnection: true,
-        reconnectionAttempts: 10,
-        reconnectionDelay: 5000,
-        reconnectionDelayMax: 30000,  // 30 seconds
-        query: { userTimeZone: userTimeZone, userLang: userLang  },
-        withCredentials: true,
-      });
+      // const socket = io('http://localhost:3030', {
+      //   reconnection: true,
+      //   reconnectionAttempts: 10,
+      //   reconnectionDelay: 5000,
+      //   reconnectionDelayMax: 30000,  // 30 seconds
+      //   query: { userTimeZone: userTimeZone, userLang: userLang  },
+      //   withCredentials: true,
+      // });
 
       // console.log('Socket connection Status:', socket.connected);
 
@@ -111,7 +96,22 @@ const App = () => {
         socket.disconnect();
       }
     }
-  }, [acceptedCookies, navigate, userTimeZone, userLang])
+  }, []);
+
+  if (!acceptedCookies) {
+    console.log("not accepted cookies in the route")
+    return (
+      <div>
+      
+      {<CookieBanner onAccept={handleCookieAcceptance} />}
+      <Routes>
+        <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAcceptedCookies={setAcceptedCookies} />} />
+        <Route exact path="/privacyPolicy" element={<PrivacyPolicy />} />
+      </Routes>
+    </div>
+    );
+
+      }
   
   return (
     // <Router>
@@ -119,7 +119,7 @@ const App = () => {
       
         {/* {!acceptedCookies && <CookieBanner onAccept={handleCookieAcceptance} />} */}
         <Routes>
-          <Route exact path="/" element={<LandingPage />} />
+          <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAcceptedCookies={setAcceptedCookies} />} />
           <Route exact path="/privacyPolicy" element={<PrivacyPolicy />} />
           <Route exact path="/chat" element={<Lobby />} />
         </Routes>

@@ -5,7 +5,7 @@ import CookieBanner from "../CookieBanner";  // Update the path accordingly
 // import PageHead from "../PageHead";
 import axios from '/src/utils/axiosConfig';
 
-const LandingPage = ({ connectSocket, acceptedCookies, setAcceptedCookies }) => {
+const LandingPage = ({ acceptedCookies, setAcceptedCookies }) => {
 
     const [showBanner, setShowBanner] = useState(false);
     const [cookies, setCookie] = useCookies(['consentCookie']);
@@ -17,7 +17,7 @@ const LandingPage = ({ connectSocket, acceptedCookies, setAcceptedCookies }) => 
         setShowBanner(!userAcceptedCookies);
 
         if (!showBanner) {
-            connectSocket();
+            // connectSocket();
             fetchData();
         }
        
@@ -28,7 +28,7 @@ const LandingPage = ({ connectSocket, acceptedCookies, setAcceptedCookies }) => 
 
         // document.cookie = 'consentCookie=true; max-age=' + (365 * 24 * 60 * 60) + '; path=/';
         setShowBanner(false);
-        connectSocket();
+        // connectSocket();
         fetchData();
     };
 
@@ -50,7 +50,7 @@ const LandingPage = ({ connectSocket, acceptedCookies, setAcceptedCookies }) => 
     return ( 
         <div>
             {/* <PageHead /> */}
-            {showBanner && <CookieBanner onAccept={acceptCookies} onDecline={declineCookies} />}
+            {showBanner && <CookieBanner onAccept={acceptCookies} onDecline={declineCookies} setAcceptedCookies={setAcceptedCookies} />}
                 <div className="homepage">
                 <h1>Welcome to the landing Page</h1>
 
