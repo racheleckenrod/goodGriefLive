@@ -27,7 +27,7 @@ console.log( data.userName)
     });
 
     socket.on('connect', () => {
-      console.log("trying to join room")
+      console.log("trying to join room", data.userName, data.room, data._id, socket.id)
       socket.emit('joinRoom', {username: data.userName, room: data.room, _id: data._id});
 
     })
@@ -51,7 +51,7 @@ console.log( data.userName)
     
     socket.on('recentMessages', (recentMessages) => {
       console.log("recentMessages", recentMessages)
-      setMessages(recentMessages);
+      setMessages((prevMessages) => [...recentMessages, ...prevMessages]);
 
     })
 

@@ -9,26 +9,14 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import Lobby from './components/lobby/Lobby';
 import ChatRoom from './components/chatRoom/ChatRoom';
 
-let userStatus;
+let userStatus = "guest";
 
 const App = () => {
 
   const navigate = useNavigate();
-  // const [cookies, setCookie] = useCookies(['consentCookie']);
   const [acceptedCookies, setAcceptedCookies] = useState(document.cookie.includes('consentCookie=true'));
   const socket = useSocket();
 
-  // useEffect(() => {
-  //   const userAcceptedCookies = document.cookie.includes('consentCookie=true');
-  //   console.log("userAcceptedCookies", userAcceptedCookies)
-  //   setAcceptedCookies(userAcceptedCookies);
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("Cookies updated:", acceptedCookies);
-  // }, [acceptedCookies]);
-
-  
 
   useEffect(() => {
     console.log("Component mounted");
