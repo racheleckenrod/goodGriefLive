@@ -7,17 +7,31 @@ import { useSocket }  from '/src/utils/socketContext';
 
 
 const ChatRoom = ({ data }) => {
+  // console.log(data)
   const socket = useSocket();
+  console.log(socket.id)
   const [messages, setMessages] = useState([]);
   const [roomUsers, setRoomUsers] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const chatMessagesRef = useRef(null);
 
-  useEffect(() => {
-    
+// 
+console.log( data.userName)
 
-    socket.emit('joinRoom', {username: data.userName, room: data.room, _id: data._id});
-      console.log( data.userName)
+  useEffect(() => {
+    socket.connect();
+
+
+    socket.on('disconnect', (reason) => {
+      console.log(`socket disconnected from chatroom... ${reason} attempting to reconnect`);
+    });
+
+    socket.on('connect', () => {
+      console.log("trying to join room")
+      socket.emit('joinRoom', {username: data.userName, room: data.room, _id: data._id});
+
+    })
+
 
     // listen for incoming messages
     socket.on('message', (msg) => {
@@ -41,19 +55,24 @@ const ChatRoom = ({ data }) => {
 
     })
 
+
+    // cleanup event listeners when the component unmounts
+    return () => {
+      socket.off('connect');
+      socket.off('message');
+      socket.off('roomUsers');
+      socket.off('recentMessages');
+      socket.disconnect();    
+    };
+  }, [data.room, data.userName, data._id]);
+
+  useEffect(() => {
+
     if (chatMessagesRef.current) {
       chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
     }
 
-
-    // cleanup event listeners when the component unmounts
-    return () => {
-      socket.off('message');
-      socket.off('roomUsers');
-      socket.off('recentMessages');
-      // socket.disconnect();
-    };
-  }, [data.room, data.userName, data._id]);
+  }, [messages])
 
   const handleSendMessage = (e) => {
     e.preventDefault();

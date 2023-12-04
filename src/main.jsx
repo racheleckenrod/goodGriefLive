@@ -21,14 +21,15 @@ const socket = io('http://localhost:3030', {
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  
   <HelmetProvider>
     <SocketProvider socket={socket}>
-      <React.StrictMode>
-        <Router>
+      <Router>
+        <React.StrictMode> 
           <App />
-        </Router>
-      </React.StrictMode>
+        </React.StrictMode>
+      </Router>
     </SocketProvider> 
   </HelmetProvider>,
-  
+
 );

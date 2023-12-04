@@ -1,41 +1,59 @@
 // LandingPage.jsx
 import React, { useEffect, useState } from "react";
-import { useCookies } from 'react-cookie'
-import CookieBanner from "../CookieBanner";  // Update the path accordingly
+// import { useCookies } from 'react-cookie'
+// import CookieBanner from "../CookieBanner";  // Update the path accordingly
 // import PageHead from "../PageHead";
 import axios from '/src/utils/axiosConfig';
 
-const LandingPage = ({ acceptedCookies, setAcceptedCookies }) => {
+const LandingPage = ({ acceptedCookies }) => {
 
-    const [showBanner, setShowBanner] = useState(false);
-    const [cookies, setCookie] = useCookies(['consentCookie']);
+    // const [showBanner, setShowBanner] = useState(false);
+    // const [cookies, setCookie] = useCookies(['consentCookie']);
 
 
     useEffect(() => {
-        const userAcceptedCookies = document.cookie.includes('consentCookie=true');
-        console.log("userAcceptedCookie?", userAcceptedCookies)
-        setShowBanner(!userAcceptedCookies);
 
-        if (!showBanner) {
+        let ignore = false;
+
+        console.log("LandingPage userAcceptedCookies mounted");
+
+        if (acceptedCookies) {
             // connectSocket();
             fetchData();
         }
+
+        return () => {
+            console.log("LandingPage userAcceptCookies unmounted");
+          };
+
+         return () => {
+            console.log("LandingPage unmounted");
+          ignore = true;
+          };
        
-    }, []);
+    }, [acceptedCookies]);
 
-    const acceptCookies = () => {
-        setCookie('consentCookie', true, { maxAge: 365 * 24 * 60 * 60, path: '/'});
+    useEffect(() => {
+        console.log("LandingPage mounted");
+        return () => {
+          console.log("LandingPage unmounted");
+        };
+      }, []);
+      
 
-        // document.cookie = 'consentCookie=true; max-age=' + (365 * 24 * 60 * 60) + '; path=/';
-        setShowBanner(false);
-        // connectSocket();
-        fetchData();
-    };
+    // const acceptCookies = () => {
+    //     setCookie('consentCookie', true, { maxAge: 365 * 24 * 60 * 60, path: '/'});
 
-    const declineCookies = () => {
-        alert("By declining, you may not have access to the site.");
-        // Additional logic if needed
-    };
+    //     // document.cookie = 'consentCookie=true; max-age=' + (365 * 24 * 60 * 60) + '; path=/';
+    //     setShowBanner(false);
+    //     // connectSocket();
+    //     fetchData();
+    // };
+
+    // const declineCookies = () => {
+    //     alert("By declining, you may not have access to the site.");
+    //     // Additional logic if needed
+    // };
 
     const fetchData = async () => {
         try {
@@ -50,7 +68,6 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies }) => {
     return ( 
         <div>
             {/* <PageHead /> */}
-            {showBanner && <CookieBanner onAccept={acceptCookies} onDecline={declineCookies} setAcceptedCookies={setAcceptedCookies} />}
                 <div className="homepage">
                 <h1>Welcome to the landing Page</h1>
 

@@ -6,24 +6,33 @@ import ChatRoom from '/src/components/chatRoom/ChatRoom'
 
 const Lobby = () => {
     const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let ignore = false;
+
         const fetchData = async () => {
             try {
                 // make a GET request to the server endpoint
                 const response = await axios.get('http://localhost:3030/chat', {
-                    withCredentials: true
+                    withCredentials: true,
                 });
-                setData(response.data);
+                
+                if (!ignore) {
+                    setData(response.data);
+                    console.log("is this the console log?", response.data)
+                }
 
-                console.log("is this the console log?", response.data)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
 
         fetchData();
+
+         return () => {
+          console.log("LandingPage unmounted");
+        ignore = true;
+        };
     }, []);
 
     if (!data) {

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
 import { useSocket } from  './utils/socketContext.jsx';
-import { useCookies } from 'react-cookie';
+// import { useCookies } from 'react-cookie';
 import LandingPage from './components/landingPage/LandingPage';
 import './App.css';
 import CookieBanner from './components/CookieBanner';
 import PrivacyPolicy from './components/PrivacyPolicy';
-// import PageHead from './components/PageHead';
 import Lobby from './components/lobby/Lobby';
 import ChatRoom from './components/chatRoom/ChatRoom';
 
@@ -15,53 +14,61 @@ let userStatus;
 const App = () => {
 
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(['consentCookie']);
-  const [acceptedCookies, setAcceptedCookies] = useState(() => {
-    console.log("accepted cookies state=", cookies)
-    return cookies.consentCookie === 'true';
-  });
+  // const [cookies, setCookie] = useCookies(['consentCookie']);
+  const [acceptedCookies, setAcceptedCookies] = useState(document.cookie.includes('consentCookie=true'));
+  const socket = useSocket();
 
-  const handleCookieAcceptance = () => {
-    console.log("checking handleCookieAcceptance",acceptedCookies)
-    setCookie('consentCookie', true, { maxAge: 365 * 24 * 60 * 60, path: '/'});
-    setAcceptedCookies(true);
-    console.log("cookies", acceptedCookies)
-  };
+  // useEffect(() => {
+  //   const userAcceptedCookies = document.cookie.includes('consentCookie=true');
+  //   console.log("userAcceptedCookies", userAcceptedCookies)
+  //   setAcceptedCookies(userAcceptedCookies);
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("Cookies updated:", acceptedCookies);
+  // }, [acceptedCookies]);
+
+  
 
   useEffect(() => {
-    const userAcceptedCookies = document.cookie.includes('consentCookie=true');
-    console.log("userAcceptedCookies", userAcceptedCookies)
-    setAcceptedCookies(userAcceptedCookies);
+    console.log("Component mounted");
+    return () => {
+      console.log("Component will unmount");
+    };
+  }, []);
+  
+
+  useEffect(() => {
+
+    if (window.location.pathname === '/privacyPolicy') {
+      return;
+    }
+
+    if (window.location.pathname !== '/' && !acceptedCookies) {
+      console.log("navigate cookies?", acceptedCookies)
+      navigate('/')
+    }
+
+    return () => {
+
+    }
+
   }, []);
 
   useEffect(() => {
-    console.log("Cookies updated:", acceptedCookies);
-  }, [acceptedCookies]);
+    if (acceptedCookies && !socket.connected) {
 
-  const socket = useSocket();
+      console.log("accepted cookies before socket", acceptedCookies);
 
-  useEffect(() => {
-    if (acceptedCookies) {
-      console.log("accepted cookies before socket", acceptedCookies)
-      // const socket = createSocket();
       socket.connect();
           
-      // const socket = io('http://localhost:3030', {
-      //   reconnection: true,
-      //   reconnectionAttempts: 10,
-      //   reconnectionDelay: 5000,
-      //   reconnectionDelayMax: 30000,  // 30 seconds
-      //   query: { userTimeZone: userTimeZone, userLang: userLang  },
-      //   withCredentials: true,
-      // });
-
-      // console.log('Socket connection Status:', socket.connected);
+        
+      socket.on('disconnect', (reason) => {
+        console.log(`socket disconnected from App... ${reason} attempting to reconnect`);
+      });
 
       socket.on('connect', () => {
       console.log('Socket connection Status:', socket.connected, socket);
-
-      // console.log('socket connected', socket.id);
-
       
       });
 
@@ -81,10 +88,11 @@ const App = () => {
           }
       }
   
+      socket.emit('setStatus', userStatus)
 
-      socket.on('setStatus', (onlineStatus) => {
-        userStatus = onlineStatus;
-        console.log("APP userStatus=", userStatus, onlineStatus);
+      socket.on('setStatus', (userStatus) => {
+        userStatus = userStatus;
+        console.log("APP userStatus=", userStatus);
         });
 
       // socket.on('connect', () => {
@@ -92,20 +100,23 @@ const App = () => {
       // });
 
       return () => {
-        console.log("cleanup function")
+        socket.off('connect');
+        socket.off('setCookie');
+        socket.off('setStatus');
+        console.log("cleanup socket function")
         socket.disconnect();
       }
     }
-  }, []);
+  }, [acceptedCookies]);
 
   if (!acceptedCookies) {
     console.log("not accepted cookies in the route")
     return (
       <div>
       
-      {<CookieBanner onAccept={handleCookieAcceptance} />}
+      {<CookieBanner setAcceptedCookies={setAcceptedCookies} />}
       <Routes>
-        <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAcceptedCookies={setAcceptedCookies} />} />
+        <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} />} />
         <Route exact path="/privacyPolicy" element={<PrivacyPolicy />} />
       </Routes>
     </div>
@@ -116,10 +127,8 @@ const App = () => {
   return (
     // <Router>
       <div>
-      
-        {/* {!acceptedCookies && <CookieBanner onAccept={handleCookieAcceptance} />} */}
         <Routes>
-          <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAcceptedCookies={setAcceptedCookies} />} />
+          <Route exact path="/" element={<LandingPage setAcceptedCookies={setAcceptedCookies} />} />
           <Route exact path="/privacyPolicy" element={<PrivacyPolicy />} />
           <Route exact path="/chat" element={<Lobby />} />
         </Routes>
