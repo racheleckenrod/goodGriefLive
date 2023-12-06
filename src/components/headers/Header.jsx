@@ -9,10 +9,10 @@ const Header = () => {
 
         <div>
         {/* <PageHead /> */}
-            {/* <div className="homepage"> */}
+            <div className="homepage">
             {/* <h1>Welcome to the landing Page</h1> */}
 
-                {/* <div id="page-wrapper"> */}
+                <div id="page-wrapper">
 
                     {/* <!-- Header --> */}
                     <section id="header" className="wrapper">
@@ -60,8 +60,8 @@ const Header = () => {
                         </nav>
 
                     </section>
-                {/* </div> */}
-            {/* </div> */}
+                </div>
+            </div>
 
         </div>
     );

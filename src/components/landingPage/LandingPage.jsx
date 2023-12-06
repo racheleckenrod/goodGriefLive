@@ -372,7 +372,7 @@ const LandingPage = ({ acceptedCookies }) => {
                                 </section>
                             </div>
                         </div>
-                    </section>
+                    </section> 
 
             </div>
         </div>

@@ -1857,7 +1857,7 @@ input, select, textarea {
 
 		.feature-list h3 {
 			color: #5e50a1 !important;
-			margin: -0.35em 0 0.75em 0;
+			margin: -0.35em 0 .75em 2em;
 			font-size: 1.15em;
 			letter-spacing: 0.05em;
 		}
@@ -1878,7 +1878,7 @@ input, select, textarea {
 			}
 
 		.feature-list.small section {
-			padding-left: 3.5em;
+			padding-left: .5em;
 		}
 
 		.feature-list.small h3:before {
