@@ -1,15 +1,63 @@
 // LandingPage.jsx
 import React, { useEffect, useState } from "react";
-// import { useCookies } from 'react-cookie'
+import { useNavigate } from "react-router-dom";
+import { useCookies } from 'react-cookie'
 // import CookieBanner from "../CookieBanner";  // Update the path accordingly
 // import PageHead from "../PageHead";
 import axios from '/src/utils/axiosConfig';
+import RulesModal from "../modals/RulesModal";
+import '../modals/modals.css';
 
 const LandingPage = ({ acceptedCookies }) => {
 
-    // const [showBanner, setShowBanner] = useState(false);
-    // const [cookies, setCookie] = useCookies(['consentCookie']);
+    const [ isRulesModalOpen, setIsRulesModalOpen ] = useState(false);
+    const [ modalRoute, setModalRoute ] = useState('')
+    const [cookies, setCookie, removeCookie] = useCookies(['rulesCookie']);
+    const [ isCheckboxChecked, setIsCheckboxChecked ] = useState(document.cookie.includes('rulesCookie=true'));
+    const navigate = useNavigate();
+    
 
+    const handleCheckboxChange= () => {
+        console.log("checkbox change", )
+        const newCheckboxState = !isCheckboxChecked;
+        setIsCheckboxChecked(newCheckboxState);
+
+        setCookie('rulesCookie', newCheckboxState, { path: '/' });
+    };
+
+    const openRulesModal = () => {
+        setIsRulesModalOpen(true);
+    };
+
+    const closeRulesModal = () => {
+        setIsRulesModalOpen(false);
+    }
+
+    const handleContinue = (modalRoute) => {
+        console.log('handleing continue from landing page route=', modalRoute)
+        setIsRulesModalOpen(false);
+        if (cookies.rulesCookie) {
+            navigate(modalRoute)
+        } else {
+            closeRulesModal();
+        }
+    }
+        
+
+
+    const handleRulesModal = (route) => {
+        console.log("handling rulesModal", route)
+        const isRulesCookieTrue = cookies.rulesCookie === 'true';
+        console.log(isRulesCookieTrue)
+        if (!isRulesCookieTrue) {
+            console.log("where is my rulesModal?????????")
+            setIsRulesModalOpen(true);
+            setModalRoute(route);
+        } else {
+            console.log("RUNNING THE ELSE")
+            navigate(route);
+        }
+    }
 
     useEffect(() => {
 
@@ -22,9 +70,9 @@ const LandingPage = ({ acceptedCookies }) => {
             fetchData();
         }
 
-        return () => {
-            console.log("LandingPage userAcceptCookies unmounted");
-          };
+        // return () => {
+        //     console.log("LandingPage userAcceptCookies unmounted");
+        //   };
 
          return () => {
             console.log("LandingPage unmounted");
@@ -41,20 +89,6 @@ const LandingPage = ({ acceptedCookies }) => {
       }, []);
       
 
-    // const acceptCookies = () => {
-    //     setCookie('consentCookie', true, { maxAge: 365 * 24 * 60 * 60, path: '/'});
-
-    //     // document.cookie = 'consentCookie=true; max-age=' + (365 * 24 * 60 * 60) + '; path=/';
-    //     setShowBanner(false);
-    //     // connectSocket();
-    //     fetchData();
-    // };
-
-    // const declineCookies = () => {
-    //     alert("By declining, you may not have access to the site.");
-    //     // Additional logic if needed
-    // };
-
     const fetchData = async () => {
         try {
             const response = await axios.get('http://localhost:3030/api');
@@ -70,6 +104,16 @@ const LandingPage = ({ acceptedCookies }) => {
             {/* <PageHead /> */}
                 <div className="homepage">
                 <h1>Welcome to the landing Page</h1>
+
+                {isRulesModalOpen && (
+        <RulesModal
+          isOpen={isRulesModalOpen}
+          onClose={closeRulesModal}
+          modalRoute={modalRoute}
+          onContinue={handleContinue}
+          handleCheckboxChange={handleCheckboxChange}
+        />
+      )}
 
                     <div id="page-wrapper">
 
@@ -141,7 +185,7 @@ const LandingPage = ({ acceptedCookies }) => {
 
 							{/* <!-- Checkbox --> */}
 							<label htmlFor="agreeCheckbox">I agree to the rules</label>
-							<input type="checkbox" id="agreeCheckbox" />
+							<input type="checkbox" id="agreeCheckbox" checked={isCheckboxChecked} onChange={handleCheckboxChange} />
 
 
                             <p>Guests</p>
@@ -151,11 +195,11 @@ const LandingPage = ({ acceptedCookies }) => {
                        
 						<ul className="actions">
                             <p>Sounds great! Sign me up.</p>
-                            <li><a href="/signup" className="rules button style3 large">Signup</a></li>
+                            <li><a href="/signup" className="button style3 large" onClick={() => handleRulesModal('/signup')}>Signup</a></li>
 							<p>I'm already a member.</p>
                             <li><a href="/login" className="rules button style3 large">Log in</a></li>
                             <p>I'm interested, continue as a guest.</p>
-                            <li><a href="/chat" className="rules button style3 large">To The Lobby</a></li>
+                            <li><a href="/chat" className="button style3 large" onClick={(event) => { event.preventDefault(); handleRulesModal('/chat')}}>To The Lobby</a></li>
                             <p>This is not for me.</p>
 							<li><a href="/removeCookies" className="button style3 large"> No, thanks </a></li>
 						</ul>

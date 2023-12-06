@@ -16,6 +16,7 @@ const App = () => {
   const navigate = useNavigate();
   const [acceptedCookies, setAcceptedCookies] = useState(document.cookie.includes('consentCookie=true'));
   const socket = useSocket();
+  const [agreedToRules, setAgreedToRules] = useState(false);
 
 
   useEffect(() => {
@@ -104,7 +105,7 @@ const App = () => {
       
       {<CookieBanner setAcceptedCookies={setAcceptedCookies} />}
       <Routes>
-        <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} />} />
+        <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAgreedToRules={setAgreedToRules} />} />
         <Route exact path="/privacyPolicy" element={<PrivacyPolicy />} />
       </Routes>
     </div>
@@ -116,7 +117,7 @@ const App = () => {
     // <Router>
       <div>
         <Routes>
-          <Route exact path="/" element={<LandingPage setAcceptedCookies={setAcceptedCookies} />} />
+          <Route exact path="/" element={<LandingPage setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} />} />
           <Route exact path="/privacyPolicy" element={<PrivacyPolicy />} />
           <Route exact path="/chat" element={<Lobby />} />
         </Routes>
