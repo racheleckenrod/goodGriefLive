@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie'
 // import CookieBanner from "../CookieBanner";  // Update the path accordingly
 // import PageHead from "../PageHead";
-import Header from "../headers/Header";
+import GuestHeader from "../headers/GuestHeader";
 import Footer from "../footers/Footer";
 import axios from '/src/utils/axiosConfig';
 import RulesModal from "../modals/RulesModal";
@@ -73,10 +73,6 @@ const LandingPage = ({ acceptedCookies }) => {
             fetchData();
         }
 
-        // return () => {
-        //     console.log("LandingPage userAcceptCookies unmounted");
-        //   };
-
          return () => {
             console.log("LandingPage unmounted");
           ignore = true;
@@ -119,7 +115,7 @@ const LandingPage = ({ acceptedCookies }) => {
                     )}
 
             {/* <div> */}
-            <Header />
+            <GuestHeader />
             {/* </div> */}
         
 
@@ -241,11 +237,7 @@ const LandingPage = ({ acceptedCookies }) => {
                 {/* <!-- Footer --> */}
                 <Footer />
 
-
             </div>
-
-
-
 
         </div>
     );

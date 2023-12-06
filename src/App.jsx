@@ -7,6 +7,7 @@ import './App.css';
 import CookieBanner from './components/CookieBanner';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import Lobby from './components/lobby/Lobby';
+import Login from './components/Login'
 import ChatRoom from './components/chatRoom/ChatRoom';
 
 let userStatus = "guest";
@@ -120,6 +121,7 @@ const App = () => {
           <Route exact path="/" element={<LandingPage setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} />} />
           <Route exact path="/privacyPolicy" element={<PrivacyPolicy />} />
           <Route exact path="/chat" element={<Lobby />} />
+          <Route path='/login' element={<Login />} />
         </Routes>
       </div>
      
