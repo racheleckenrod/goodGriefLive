@@ -47,7 +47,7 @@ const LandingPage = ({ acceptedCookies }) => {
 
     const handleRulesModal = (route) => {
         console.log("handling rulesModal", route)
-        const isRulesCookieTrue = cookies.rulesCookie === 'true';
+        const isRulesCookieTrue = cookies.rulesCookie === true;
         console.log(isRulesCookieTrue)
         if (!isRulesCookieTrue) {
             console.log("where is my rulesModal?????????")
@@ -67,6 +67,7 @@ const LandingPage = ({ acceptedCookies }) => {
 
         if (acceptedCookies) {
             // connectSocket();
+            
             fetchData();
         }
 
