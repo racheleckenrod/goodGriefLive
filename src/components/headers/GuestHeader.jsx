@@ -1,12 +1,12 @@
 import React from 'react';
-import axios from 'axios';
+import axios from '/src/utils/axiosConfig';
 import { useNavigate } from 'react-router-dom';
 
 
 
 
 
-const Header = () => {
+const Header = ({ data }) => {
 
     const navigate = useNavigate();
 

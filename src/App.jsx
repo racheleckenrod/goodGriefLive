@@ -58,7 +58,7 @@ const App = () => {
       });
 
       socket.on('connect', () => {
-      console.log('Socket connection Status:', socket.connected, socket);
+      console.log('Socket App connection Status:', socket.connected, socket);
       
       });
 
@@ -84,6 +84,20 @@ const App = () => {
         userStatus = userStatus;
         console.log("APP userStatus=", userStatus);
         });
+
+
+        socket.io.on("reconnect_attempt", (attemptNumber) => {
+          // Handle reconnect attempt
+          console.log("Reconnect attempt", attemptNumber);
+          // console.log(`Attempt numbrt : (attempt ${attemptNumber})`);
+        });
+        
+        socket.io.on('reconnect', (attemptNumber) => {
+          // console.log("trying")
+          console.log(`Reconnected after ${attemptNumber} attempts`);
+          // Handle any reconnection logic here.
+        });
+          
 
       // socket.on('connect', () => {
       //   console.log("socket connected", socket)

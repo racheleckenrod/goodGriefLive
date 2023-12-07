@@ -1,7 +1,7 @@
 // ChatRoom.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import Message from '/src/components/Message';
-import axios from 'axios';
+import axios from "/src/utils/axiosConfig";
 import { useSocket }  from '/src/utils/socketContext';
 
 
@@ -29,9 +29,16 @@ console.log( data.userName)
     socket.on('connect', () => {
       console.log("trying to join room", data.userName, data.room, data._id, socket.id)
       socket.emit('joinRoom', {username: data.userName, room: data.room, _id: data._id});
+      console.log("after emit", data.userName)
 
     })
 
+    socket.io.on("reconnect_attempt", (attemptNumber) => {
+      // Handle reconnect attempt
+      console.log("Reconnect attempt", attemptNumber);
+      // console.log(`Attempt numbrt : (attempt ${attemptNumber})`);
+    });
+      
 
     // listen for incoming messages
     socket.on('message', (msg) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '/src/utils/axiosConfig';
 import '/src/assets/Bradstyle.css';
 import Header from '../headers/Header';
 import ChatRoom from '/src/components/chatRoom/ChatRoom'
@@ -46,7 +46,7 @@ const Lobby = () => {
             <section className="homepage">
 		        <div id="page-wrapper">
 
-			       <Header />
+			       <Header data={data} />
             
                     { /* Highlights */}
 				    <section id="highlights" className="wrapper style3">

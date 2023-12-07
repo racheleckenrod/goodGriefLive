@@ -25,9 +25,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <HelmetProvider>
     <SocketProvider socket={socket}>
       <Router>
-        <React.StrictMode> 
+        {/* <React.StrictMode>  */}
           <App />
-        </React.StrictMode>
+        {/* </React.StrictMode> */}
       </Router>
     </SocketProvider> 
   </HelmetProvider>,

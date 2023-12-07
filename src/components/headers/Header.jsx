@@ -1,9 +1,9 @@
 import React from 'react';
-import axios from 'axios';
+import axios from '/src/utils/axiosConfig';
 import { useNavigate } from 'react-router-dom';
 
 
-const Header = () => {
+const Header = ({ data }) => {
 
 
 const navigate = useNavigate();
@@ -11,7 +11,7 @@ const navigate = useNavigate();
 const handleLogout = async () => {
 
     try {
-        const response = await axios.post('/api/logout');
+        const response = await axios.get('/api/logout');
 
         console.log(response.data);
 
