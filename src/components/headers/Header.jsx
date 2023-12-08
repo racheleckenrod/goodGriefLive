@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Header = ({ data }) => {
-
+console.log(data)
 
 const navigate = useNavigate();
 

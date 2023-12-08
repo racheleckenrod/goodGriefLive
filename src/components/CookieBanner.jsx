@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie'
 const CookieBanner = ({ setAcceptedCookies }) => {
 
     const [cookies, setCookie] = useCookies(['consentCookie']);
-
+    // const [acceptedCookies, setAcceptedCookies] = useState(false)
 
     const onAccept = () => {
 

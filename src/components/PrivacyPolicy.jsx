@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CookieBanner from './CookieBanner';
 
 const PrivacyPolicy = () => {
-    const [showCookieBanner, setShowCookieBanner] = useState(true);
+    // const [showCookieBanner, setShowCookieBanner] = useState(true);
     const [cookiesAccepted, setCookiesAccepted] = useState(false);
 
 
@@ -34,7 +34,7 @@ const PrivacyPolicy = () => {
 
         <div className="homepage">
             <div id="page-wrapper">
-                <CookieBanner showBanner={showCookieBanner} onAccept={handleAccept} onDecline={handleDecline} />
+                {/* <CookieBanner showBanner={showCookieBanner} onAccept={handleAccept} onDecline={handleDecline} /> */}
 
                 {/*  Header */}
                 <section id="header" className="wrapper">
