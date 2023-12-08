@@ -25,7 +25,7 @@ const Login = () => {
             console.log("Form submitted", formData, response.data, response.data.success);
             
             if (response.data.success) {
-                navigate("/");
+                navigate("/chat");
             } else {
                 console.log("login failed");
             }

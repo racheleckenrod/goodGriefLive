@@ -10,6 +10,7 @@ const ChatRoom = ({ data }) => {
   // console.log(data)
   const socket = useSocket();
   console.log(socket.id)
+  // console.log(data)
   const [messages, setMessages] = useState([]);
   const [roomUsers, setRoomUsers] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -19,7 +20,27 @@ const ChatRoom = ({ data }) => {
 console.log( data.userName)
 
   useEffect(() => {
-    socket.connect();
+    if (!socket.connected) {
+        socket.connect();
+
+    }
+  
+
+// Function to send a message to the server
+const sendMessageToServer = (message) => {
+  // Use the 'emit' method to send a message to the server
+  socket.emit('clientMessage', message);
+};
+
+if (socket.connected) {
+  console.log("socket connected")
+  // Example of using the function
+sendMessageToServer('Hello, server!');
+} else {
+  console.log("socket is not connected", socket.id)
+  socket.connect();
+}
+
 
 
     socket.on('disconnect', (reason) => {
@@ -27,10 +48,18 @@ console.log( data.userName)
     });
 
     socket.on('connect', () => {
-      console.log("trying to join room", data.userName, data.room, data._id, socket.id)
-      socket.emit('joinRoom', {username: data.userName, room: data.room, _id: data._id});
+      console.log("trying to join room", data.userName, data.room, data._id, socket.id, socket.connected )
+      // socket.emit ('tester', 'sampleData')
+      socket.emit('joinRoom', {username: data.userName, room: data.room, _id: data._id}, (ack) => {
+        console.log('Server acknowledged joinRoom event:', ack);
+      });
       console.log("after emit", data.userName)
 
+    });
+
+    socket.on('setStatus', (onlineStatus) =>{
+      console.log(onlineStatus)
+      
     })
 
     socket.io.on("reconnect_attempt", (attemptNumber) => {
@@ -67,11 +96,14 @@ console.log( data.userName)
     return () => {
       socket.off('connect');
       socket.off('message');
+      socket.off('setStatus');
+
       socket.off('roomUsers');
       socket.off('recentMessages');
       socket.disconnect();    
+      console.log("cleanup??")
     };
-  }, [data.room, data.userName, data._id]);
+  }, [data.room, data.userName, data._id, socket]);
 
   useEffect(() => {
 

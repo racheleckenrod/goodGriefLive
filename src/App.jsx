@@ -21,15 +21,15 @@ const App = () => {
 
 
   useEffect(() => {
-    console.log("Component mounted");
+    console.log("App Component mounted no dependancies");
     return () => {
-      console.log("Component will unmount");
+      console.log("App Component will unmount no dependancies");
     };
   }, []);
   
 
   useEffect(() => {
-
+    console.log("window.location check")
     if (window.location.pathname === '/privacyPolicy') {
       return;
     }
@@ -40,12 +40,13 @@ const App = () => {
     }
 
     return () => {
-
+      console.log("return window.location check")
     }
 
   }, []);
 
   useEffect(() => {
+    console.log("App useEffect with conditional accepted cookies ")
     if (acceptedCookies && !socket.connected) {
 
       console.log("accepted cookies before socket", acceptedCookies);
@@ -82,7 +83,7 @@ const App = () => {
 
       socket.on('setStatus', (userStatus) => {
         userStatus = userStatus;
-        console.log("APP userStatus=", userStatus);
+        console.log("APP userStatus=", userStatus, socket.id);
         });
 
 
@@ -99,9 +100,9 @@ const App = () => {
         });
           
 
-      // socket.on('connect', () => {
-      //   console.log("socket connected", socket)
-      // });
+      socket.on('connect', () => {
+        console.log("socket connected", socket)
+      });
 
       return () => {
         socket.off('connect');

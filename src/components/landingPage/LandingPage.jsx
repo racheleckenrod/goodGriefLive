@@ -65,25 +65,25 @@ const LandingPage = ({ acceptedCookies }) => {
 
         let ignore = false;
 
-        console.log("LandingPage userAcceptedCookies mounted");
+        console.log("LandingPage going to fetch data if acceptedCookies mounted");
 
         if (acceptedCookies) {
             // connectSocket();
-            
+            console.log("fetching data")
             fetchData();
         }
 
          return () => {
-            console.log("LandingPage unmounted");
+            console.log("LandingPage unmounted dependancy of acceptedCookies");
           ignore = true;
           };
        
     }, [acceptedCookies]);
 
     useEffect(() => {
-        console.log("LandingPage mounted");
+        console.log("Simple Check LandingPage mounted");
         return () => {
-          console.log("LandingPage unmounted");
+          console.log("Simple Check LandingPage unmounted");
         };
       }, []);
       
