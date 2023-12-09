@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
 import { useSocket } from  './utils/socketContext.jsx';
-// import { useCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
+import axios from '/src/utils/axiosConfig';
 import LandingPage from './components/landingPage/LandingPage';
 import './App.css';
 import CookieBanner from './components/CookieBanner';
@@ -18,6 +19,8 @@ let userStatus = "guest";
 const App = () => {
 
   const navigate = useNavigate();
+  const [message, setMessage] = useState('');
+  const [cookies, setCookie] = useCookies(['consentCookie']);
   const [acceptedCookies, setAcceptedCookies] = useState(document.cookie.includes('consentCookie=true'));
   const socket = useSocket();
   const [agreedToRules, setAgreedToRules] = useState(false);
@@ -47,6 +50,35 @@ const App = () => {
     }
 
   }, [acceptedCookies]);
+
+
+  const handleConsent = () => {
+    console.log("handling consent")
+    setAcceptedCookies(true);
+    setCookie('consentCookie', true, { maxAge: 365 * 24 * 60 * 60, path: '/'});
+   console.log(document.cookie.includes('consentCookie=true'), acceptedCookies)
+  };
+
+
+
+  const handleRemoveCookies = async () => {
+    console.log("handle remove cookies")
+    try {
+        const response = await axios.get('/api/removeCookies');
+        if (response.status === 200) {
+            setMessage(response.data.message); 
+            setAcceptedCookies(false);
+        } else {
+            console.error('Unexpected response status:', response.status);
+        }
+    } catch (error) {
+        console.error('Error making request', error);
+    }
+    // logic to handle revoking consent
+    navigate('/privacyPolicy');
+  };
+
+
 
   useEffect(() => {
     console.log("App useEffect with conditional accepted cookies ")
@@ -118,26 +150,26 @@ const App = () => {
   }, [acceptedCookies]);
 
   if (!acceptedCookies) {
-    console.log("not accepted cookies in the route")
+    console.log("not accepted cookies in the route", acceptedCookies)
     return (
       <div>
       
       {<CookieBanner setAcceptedCookies={setAcceptedCookies} />}
       <Routes>
         <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAgreedToRules={setAgreedToRules} />} />
-        <Route exact path="/privacyPolicy" element={<PrivacyPolicy />} />
+        <Route exact path="/privacyPolicy" element={<PrivacyPolicy acceptedCookies={acceptedCookies} handleRemoveCookies={handleRemoveCookies} handleConsent={handleConsent} message={message} />} />
       </Routes>
     </div>
     );
 
-      }
+  }
   
   return (
     // <Router>
       <div>
         <Routes>
           <Route exact path="/" element={<LandingPage setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} />} />
-          <Route exact path="/privacyPolicy" element={<PrivacyPolicy />} />
+          <Route exact path="/privacyPolicy" element={<PrivacyPolicy acceptedCookies={acceptedCookies} handleRemoveCookies={handleRemoveCookies}/>} />
           <Route exact path="/chat" element={<Lobby />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path='/login' element={<Login />} />

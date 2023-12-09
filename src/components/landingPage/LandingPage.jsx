@@ -20,12 +20,17 @@ const LandingPage = ({ acceptedCookies }) => {
     
 
     const handleCheckboxChange= () => {
-        console.log("checkbox change", )
-        const newCheckboxState = !isCheckboxChecked;
-        setIsCheckboxChecked(newCheckboxState);
+        if (!acceptedCookies) {
+           alert("You must accept cookies first.")
+        } else {
+            console.log("checkbox change", )
+            const newCheckboxState = !isCheckboxChecked;
+            setIsCheckboxChecked(newCheckboxState);
 
-        setCookie('rulesCookie', newCheckboxState, { path: '/' });
-    };
+            setCookie('rulesCookie', newCheckboxState, { path: '/' });
+        }
+        }
+        
 
     const openRulesModal = () => {
         setIsRulesModalOpen(true);

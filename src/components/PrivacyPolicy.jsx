@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import  { React, useState, useEffect } from 'react';
 import axios from '/src/utils/axiosConfig';
-
+import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import CookieBanner from './CookieBanner';
 
-const PrivacyPolicy = () => {
-    const [cookiesAccepted, setCookiesAccepted] = useState(false);
-    const [message, setMessage] = useState('');
+const PrivacyPolicy = ( { handleRemoveCookies, handleConsent, message } ) => {
+    const [acceptedCookies, setAcceptedCookies] = useState(false);
+    const [cookies, setCookie] = useCookies(['consentCookie']);
+    // const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -23,31 +24,18 @@ const PrivacyPolicy = () => {
         }
     };
 
+    useEffect(() => {
+        console.log('PrivacyPolicy component re-rendered with acceptedCookies:', acceptedCookies);
+        const consentCookie = cookies['consentCookie'];
 
-
-    const handleConsent = () => {
-
-        setCookie('consentCookie', true, { maxAge: 365 * 24 * 60 * 60, path: '/'});
-        setCookiesAccepted(true);
-    };
-
-    const handleRemoveCookies = async () => {
-        try {
-            const response = await axios.get('/api/removeCookies');
-            if (response.status === 200) {
-                setMessage(response.data.message); 
-                setCookiesAccepted(false);
-            } else {
-                console.error('Unexpected response status:', response.status);
-            }
-        } catch (error) {
-            console.error('Error making request', error);
+        if (consentCookie) {
+            setAcceptedCookies(true);
         }
-        // logic to handle revoking consent
-        navigate('/');
+        console.log('PrivacyPolicy componentAFTER re-rendered with acceptedCookies:', acceptedCookies);
 
-       
-    };
+      }, [acceptedCookies]);
+      
+
 
     return (
 

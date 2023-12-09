@@ -21,16 +21,20 @@ const CookieBanner = ({ setAcceptedCookies }) => {
     };
    
     return (
-        <div id="cookieBanner"  style={{ display: 'block', position: 'fixed', top: '0', left: '0', width: '100%', background: '#f0f0f0', padding: '10px', textAlign: 'center', zIndex: '1000' }}>
-            <p>This website uses cookies. By using this site, you agree to our use of cookies.</p>
-            <button className="button style1 small" onClick={onAccept}>
+        <div id="cookieBanner" className="style1 actions" style={{ display: 'block', position: 'fixed', top: '0', left: '0', width: '100%', background: '#f0f0f0', padding: '10px', textAlign: 'center', zIndex: '1000' }}>
+            <p style={{ marginTop: '1em'}}>This website uses cookies. Before using this site, you must agree to our use of cookies.</p>
+            
+                <button className="button style1 small" style={{margin: '1em'}} onClick={onAccept}>
                 Accept
             </button>
-            <button className="button style1 small" onClick={onDecline}>
+                <button className="button style1 small" style={{margin: '1em'}} onClick={onDecline}>
                 Decline
             </button>
-            <p>
-                Our <a href="/privacyPolicy">Privacy Policy</a>
+            
+            
+           
+            <p style={{ marginTop: '1em'}}>
+                Our <a  href="/privacyPolicy">Privacy Policy</a>
             </p>
         </div>
     );
