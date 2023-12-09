@@ -10,6 +10,7 @@ import Lobby from './components/lobby/Lobby';
 import Login from './components/Login';
 import Signup from './components/signup/Signup';
 import Welcome from './components/Welcome.jsx';
+import Profile from './components/profile/Profile'
 import ChatRoom from './components/chatRoom/ChatRoom';
 
 let userStatus = "guest";
@@ -45,7 +46,7 @@ const App = () => {
       console.log("return window.location check")
     }
 
-  }, []);
+  }, [acceptedCookies]);
 
   useEffect(() => {
     console.log("App useEffect with conditional accepted cookies ")
@@ -141,7 +142,7 @@ const App = () => {
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path='/login' element={<Login />} />
           <Route exact path='/welcome' element={<Welcome />} />
-
+          <Route exact path='/profile' element={<Profile />} />
         </Routes>
       </div>
      

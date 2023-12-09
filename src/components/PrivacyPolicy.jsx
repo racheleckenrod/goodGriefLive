@@ -1,33 +1,52 @@
 import React, { useState } from 'react';
+import axios from '/src/utils/axiosConfig';
+
+import { useNavigate } from 'react-router-dom';
 import CookieBanner from './CookieBanner';
 
 const PrivacyPolicy = () => {
-    // const [showCookieBanner, setShowCookieBanner] = useState(true);
     const [cookiesAccepted, setCookiesAccepted] = useState(false);
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
+    const handleLogout = async () => {
 
-        // Handlers for cookie consent
-    const handleAccept = () => {
-        // Your logic to handle cookie acceptance
-        // For example, set a cookie or update the state in your app
-        setShowCookieBanner(false);
-    };
+        try {
+            const response = await axios.get('/api/logout');
 
-    const handleDecline = () => {
-        // Your logic to handle declining cookies
-        // For example, show a message or perform other actions
-        setShowCookieBanner(false);
+            console.log(response.data);
+
+            navigate('/');
+
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
     };
 
 
 
     const handleConsent = () => {
+
+        setCookie('consentCookie', true, { maxAge: 365 * 24 * 60 * 60, path: '/'});
         setCookiesAccepted(true);
     };
 
-    const handleRevokeConsent = () => {
+    const handleRemoveCookies = async () => {
+        try {
+            const response = await axios.get('/api/removeCookies');
+            if (response.status === 200) {
+                setMessage(response.data.message); 
+                setCookiesAccepted(false);
+            } else {
+                console.error('Unexpected response status:', response.status);
+            }
+        } catch (error) {
+            console.error('Error making request', error);
+        }
         // logic to handle revoking consent
-        setCookiesAccepted(false);
+        navigate('/');
+
+       
     };
 
     return (
@@ -76,7 +95,7 @@ const PrivacyPolicy = () => {
                             <li><a href="/profile" className="openModalButton" data-modal="profile">Profile</a></li>
                             <li><a href="/post/newPost/:id" className="openModalButton" data-modal="newPost">New Post</a></li>
                             <li><a href="/feed" className="openModalButton" data-modal="feed">Community</a></li>
-                            <li><a href="/logout">Logout</a></li>
+                            <li><a onClick={handleLogout}>Logout</a></li>
                         </ul>
                     </nav>
 
@@ -93,8 +112,8 @@ const PrivacyPolicy = () => {
                     <div className="title">Our Privacy Policy</div>
                     <div className="container">
 
-                        <main className="container">
-                            <div className="row ">
+                        {/* <main className="container"> */}
+                            {/* <div className=" "> */}
                     
 
                                 <div>
@@ -155,16 +174,16 @@ const PrivacyPolicy = () => {
                         
                                         <div className="">
                                             <ul className="actions">
-                                                <li><a href="#" onClick={handleConsent} className="button style3 large"> I give my consent </a></li>
-                                                <li><a href="/" className="button style3 large"> No, thanks </a></li>
-                                                <li><a href="/removeCookies" onClick={handleRevokeConsent} className="button style3 large">Revoke Consent</a></li>
-                                                <p>Please clear my cookies.</p>
+                                                <li><a href="#" onClick={handleConsent} className="button style3 small"> I give my consent </a></li>
+                                                <li><a href="/" className="button style3 small"> No, thanks </a></li>
+                                                <li><a onClick={handleRemoveCookies} className="button style3 small">Remove Cookies</a></li>
                                             </ul>
+                                            {message && <p>{message}</p>}
                                         </div>
                                     
                                 </div>
-                            </div>
-                        </main>
+                            {/* </div> */}
+                        {/* </main> */}
                     </div>
                 </section>
         
