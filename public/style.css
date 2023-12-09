@@ -66,3 +66,6 @@ label[for="agreeCheckbox"] {
     cursor: pointer;
   }
   
+  .visible {
+    display: block!important;
+  }

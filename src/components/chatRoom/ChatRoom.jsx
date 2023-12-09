@@ -20,27 +20,27 @@ const ChatRoom = ({ data }) => {
 console.log( data.userName)
 
   useEffect(() => {
+
     if (!socket.connected) {
         socket.connect();
 
     }
-  
+      
 
-// Function to send a message to the server
-const sendMessageToServer = (message) => {
-  // Use the 'emit' method to send a message to the server
-  socket.emit('clientMessage', message);
-};
+    // Function to send a message to the server
+    const sendMessageToServer = (message) => {
+      // Use the 'emit' method to send a message to the server
+      socket.emit('clientMessage', message);
+    };
 
-if (socket.connected) {
-  console.log("socket connected")
-  // Example of using the function
-sendMessageToServer('Hello, server!');
-} else {
-  console.log("socket is not connected", socket.id)
-  socket.connect();
-}
-
+    if (socket.connected) {
+      console.log("socket connected")
+      // Example of using the function
+    sendMessageToServer('Hello, server!');
+    } else {
+      console.log("socket is not connected", socket.id)
+      socket.connect();
+    }
 
 
     socket.on('disconnect', (reason) => {
@@ -53,7 +53,7 @@ sendMessageToServer('Hello, server!');
       socket.emit('joinRoom', {username: data.userName, room: data.room, _id: data._id}, (ack) => {
         console.log('Server acknowledged joinRoom event:', ack);
       });
-      console.log("after emit", data.userName)
+      // console.log("after emit", data.userName)
 
     });
 
@@ -64,7 +64,7 @@ sendMessageToServer('Hello, server!');
 
     socket.io.on("reconnect_attempt", (attemptNumber) => {
       // Handle reconnect attempt
-      console.log("Reconnect attempt", attemptNumber);
+      console.log(`Reconnect attempt from ${data.room}`, attemptNumber);
       // console.log(`Attempt numbrt : (attempt ${attemptNumber})`);
     });
       
@@ -126,7 +126,7 @@ sendMessageToServer('Hello, server!');
 
   return (
     <section id="chat" className="wrapper style1">
-                        <div className="title">The Lobby Chat Room</div>
+                        <div className="title">{ data.room } Chat Room</div>
                         <section id="" className="wrapper style1">
                             <div className="chat-container container">
                                 <header className="chat-header">
@@ -139,7 +139,7 @@ sendMessageToServer('Hello, server!');
                                 <main className="chat-main">
                                     <div className="chat-sidebar">
                                       <h3><i className="fas fa-dove"></i> Room Name:</h3>
-                                      <h2 id="room-name">The Lobby</h2>
+                                      <h2 id="room-name">{ data.room }</h2>
                                       <h3><i className="fas fa-hand-holding-heart"></i> Click on Group Members</h3>
                                     
                                       <ul id="chatUsers">{roomUsers.map((roomUser) => (

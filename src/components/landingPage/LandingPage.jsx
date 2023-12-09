@@ -8,9 +8,10 @@ import GuestHeader from "../headers/GuestHeader";
 import Footer from "../footers/Footer";
 import axios from '/src/utils/axiosConfig';
 import RulesModal from "../modals/RulesModal";
+import NavBar from "../navBar/NavBar";
 import '../modals/modals.css';
 
-const LandingPage = ({ acceptedCookies, handleRemoveCookies }) => {
+const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies, message }) => {
 
     const [ isRulesModalOpen, setIsRulesModalOpen ] = useState(false);
     const [ modalRoute, setModalRoute ] = useState('')
@@ -18,8 +19,10 @@ const LandingPage = ({ acceptedCookies, handleRemoveCookies }) => {
     const [ isCheckboxChecked, setIsCheckboxChecked ] = useState(document.cookie.includes('rulesCookie=true'));
     const navigate = useNavigate();
     
+    console.log("acceptedCookies=", acceptedCookies)
 
     const handleCheckboxChange= () => {
+        console.log("check acceptedCookies", acceptedCookies)
         if (!acceptedCookies) {
            alert("You must accept cookies first.")
         } else {
@@ -41,7 +44,7 @@ const LandingPage = ({ acceptedCookies, handleRemoveCookies }) => {
     }
 
     const handleContinue = (modalRoute) => {
-        console.log('handleing continue from landing page route=', modalRoute)
+        console.log('handling continue from landing page route=', modalRoute)
         setIsRulesModalOpen(false);
         if (cookies.rulesCookie) {
             navigate(modalRoute)
@@ -106,7 +109,7 @@ const LandingPage = ({ acceptedCookies, handleRemoveCookies }) => {
     return ( 
         <div>
             {/* <PageHead /> */}
-                <div className="homepage">
+                <div id="page-wrapper">
                 {/* <h1>Welcome to the landing Page</h1> */}
 
                     {isRulesModalOpen && 
@@ -123,9 +126,10 @@ const LandingPage = ({ acceptedCookies, handleRemoveCookies }) => {
             <GuestHeader />
             {/* </div> */}
         
-
 			{/* <!-- Intro --> */}
 				<section id="intro" className="wrapper style1">
+                {/* <NavBar /> */}
+
 					<div className="title">Join Our Community</div>
 					<div className="container">
 						<p className="style1">You don't need to be alone in your grief.</p>
@@ -147,7 +151,7 @@ const LandingPage = ({ acceptedCookies, handleRemoveCookies }) => {
                             <p>You are welcome to participate in a limited way as a guest. We have a live chat in our lobby where you can chat with other guests and users of the site. We encourage you to sign up and become a member. You will then be able to create your own profile, share your story, and post photos, comments and likes. You can view other members profiles and get to know who you are talking to. We also have a community feed that stays updated with users posts. The three most liked posts display in The Lobby.</p>
 
                         </div>
-                       
+                        
 						<ul className="actions">
                             <p style={{marginBottom: '0'}}>Sounds great! Sign me up.</p>
                             <li><a style={{marginBottom: '3em', marginTop: '1em'}} href="/signup" className="button style3 large" onClick={(event) => { event.preventDefault(); handleRulesModal('/signup')}} >Signup</a></li>
@@ -157,7 +161,8 @@ const LandingPage = ({ acceptedCookies, handleRemoveCookies }) => {
                             <li><a style={{marginBottom: '3em', marginTop: '1em'}} href="/chat" className="button style3 large" onClick={(event) => { event.preventDefault(); handleRulesModal('/chat')}} >To The Lobby</a></li>
                             <p style={{marginBottom: '0'}}>This is not for me.</p>
 							<li><a style={{marginTop: '1em'}} onClick={handleRemoveCookies} className="button style3 large"> No, thanks </a></li>
-						</ul>
+                            {message && <p>{message}</p>}
+                        </ul>
 					</div>
 				</section>
 

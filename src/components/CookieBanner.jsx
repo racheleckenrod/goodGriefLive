@@ -3,7 +3,7 @@ import React from 'react';
 import { useCookies } from 'react-cookie'
 
 
-const CookieBanner = ({ setAcceptedCookies }) => {
+const CookieBanner = ({ setAcceptedCookies, setMessage }) => {
 
     const [cookies, setCookie] = useCookies(['consentCookie']);
     // const [acceptedCookies, setAcceptedCookies] = useState(false)
@@ -12,6 +12,7 @@ const CookieBanner = ({ setAcceptedCookies }) => {
 
         setCookie('consentCookie', true, { maxAge: 365 * 24 * 60 * 60, path: '/'});
         setAcceptedCookies(true);
+        setMessage('')
     };
 
 

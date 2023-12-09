@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from '/src/utils/axiosConfig';
 import { useNavigate } from 'react-router-dom';
+import NavBar from '../navBar/NavBar';
 
 
 
@@ -32,23 +33,24 @@ const Header = ({ data }) => {
 
 
         <div>
-        {/* <PageHead /> */}
-            <div className="homepage">
-            {/* <h1>Welcome to the landing Page</h1> */}
+            {/* <PageHead /> */}
+            <div>
 
-                <div id="page-wrapper">
+                <div>
 
-                    {/* <!-- Header --> */}
+                    {/* Header */}
                     <section id="header" className="wrapper">
 
-                        {/* <!-- Logo --> */}
+                        {/*  Logo  */}
                         <div id="logo">
                             <h1><a href="/">Live Grief Support</a></h1>
-                            <p>A special place to honor our loved ones.</p>					
+                            <p>A special place to honor our loved ones.</p>
+
                         </div>
 
-                        {/* <!-- Nav --> */}
-                        <nav id="nav">
+                        {/*  Nav  */}
+                        <NavBar />
+                        {/* <nav id="nav">
                             <ul>
                                 <li className="current"><a href="/chat" className="rules">The Lobby</a></li>
                                 <li>
@@ -81,7 +83,7 @@ const Header = ({ data }) => {
                                 </li>
                                 <li><a onClick={handleLogout} style={{ cursor: 'pointer '}}>Logout</a></li>
                             </ul>
-                        </nav>
+                        </nav> */}
 
                     </section>
                 </div>

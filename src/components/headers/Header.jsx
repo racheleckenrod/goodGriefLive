@@ -28,20 +28,19 @@ const handleLogout = async () => {
 
 
         <div>
-        {/* <PageHead /> */}
-            <div className="homepage">
-            {/* <h1>Welcome to the landing Page</h1> */}
-
-                <div id="page-wrapper">
+            {/* <PageHead /> */}
+            <div className="">
+                {/* <div id="page-wrapper"> */}
 
 			        {/* Header */}
 				    <section id="header" className="wrapper style1">
+
 					    {/* Logo */}
                         <div id="logo">
                             <h1><a href="/">Live Grief Support</a></h1>
                         
                             <p>A special place to honor our loved ones</p>
-                            <p>Welcome to the Lobby</p>
+                            <p>Welcome to Good Grief Live.</p>
                             <p>We are glad you are here, { data.userName }.</p>
                         </div>
 
@@ -79,7 +78,7 @@ const handleLogout = async () => {
                             </ul>
                         </nav>
 				    </section>
-                </div>
+                {/* </div> */}
             </div>
         </div>
     );

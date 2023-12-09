@@ -13,6 +13,7 @@ import Signup from './components/signup/Signup';
 import Welcome from './components/Welcome.jsx';
 import Profile from './components/profile/Profile'
 import ChatRoom from './components/chatRoom/ChatRoom';
+// import $ from 'jquery';
 
 let userStatus = "guest";
 
@@ -28,6 +29,10 @@ const App = () => {
 
   useEffect(() => {
     console.log("App Component mounted no dependancies");
+
+    // window.executeMainJs();
+    //     document.body.classList.remove('is-preload');
+
     return () => {
       console.log("App Component will unmount no dependancies");
     };
@@ -154,9 +159,9 @@ const App = () => {
     return (
       <div>
       
-      {<CookieBanner setAcceptedCookies={setAcceptedCookies} />}
+      {<CookieBanner setAcceptedCookies={setAcceptedCookies} setMessage={setMessage} />}
       <Routes>
-        <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAgreedToRules={setAgreedToRules} handleRemoveCookies={handleRemoveCookies} />} />
+        <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} handleRemoveCookies={handleRemoveCookies} message={message} />} />
         <Route exact path="/privacyPolicy" element={<PrivacyPolicy acceptedCookies={acceptedCookies} handleRemoveCookies={handleRemoveCookies} handleConsent={handleConsent} message={message} />} />
       </Routes>
     </div>
@@ -168,8 +173,8 @@ const App = () => {
     // <Router>
       <div>
         <Routes>
-          <Route exact path="/" element={<LandingPage setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} handleRemoveCookies={handleRemoveCookies} />} />
-          <Route exact path="/privacyPolicy" element={<PrivacyPolicy acceptedCookies={acceptedCookies} handleRemoveCookies={handleRemoveCookies}/>} />
+          <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} handleRemoveCookies={handleRemoveCookies} message={message} />} />
+          <Route exact path="/privacyPolicy" element={<PrivacyPolicy acceptedCookies={acceptedCookies} handleRemoveCookies={handleRemoveCookies} message={message} />} />
           <Route exact path="/chat" element={<Lobby />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path='/login' element={<Login />} />
