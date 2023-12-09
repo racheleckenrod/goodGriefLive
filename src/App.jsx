@@ -75,7 +75,7 @@ const App = () => {
         console.error('Error making request', error);
     }
     // logic to handle revoking consent
-    navigate('/privacyPolicy');
+    // navigate('/privacyPolicy');
   };
 
 
@@ -156,7 +156,7 @@ const App = () => {
       
       {<CookieBanner setAcceptedCookies={setAcceptedCookies} />}
       <Routes>
-        <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAgreedToRules={setAgreedToRules} />} />
+        <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAgreedToRules={setAgreedToRules} handleRemoveCookies={handleRemoveCookies} />} />
         <Route exact path="/privacyPolicy" element={<PrivacyPolicy acceptedCookies={acceptedCookies} handleRemoveCookies={handleRemoveCookies} handleConsent={handleConsent} message={message} />} />
       </Routes>
     </div>
@@ -168,7 +168,7 @@ const App = () => {
     // <Router>
       <div>
         <Routes>
-          <Route exact path="/" element={<LandingPage setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} />} />
+          <Route exact path="/" element={<LandingPage setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} handleRemoveCookies={handleRemoveCookies} />} />
           <Route exact path="/privacyPolicy" element={<PrivacyPolicy acceptedCookies={acceptedCookies} handleRemoveCookies={handleRemoveCookies}/>} />
           <Route exact path="/chat" element={<Lobby />} />
           <Route exact path="/signup" element={<Signup />} />

@@ -10,11 +10,11 @@ import axios from '/src/utils/axiosConfig';
 import RulesModal from "../modals/RulesModal";
 import '../modals/modals.css';
 
-const LandingPage = ({ acceptedCookies }) => {
+const LandingPage = ({ acceptedCookies, handleRemoveCookies }) => {
 
     const [ isRulesModalOpen, setIsRulesModalOpen ] = useState(false);
     const [ modalRoute, setModalRoute ] = useState('')
-    const [cookies, setCookie, removeCookie] = useCookies(['rulesCookie']);
+    const [cookies, setCookie, removeCookie] = useCookies(['rulesCookie', 'consentCookie']);
     const [ isCheckboxChecked, setIsCheckboxChecked ] = useState(document.cookie.includes('rulesCookie=true'));
     const navigate = useNavigate();
     
@@ -149,14 +149,14 @@ const LandingPage = ({ acceptedCookies }) => {
                         </div>
                        
 						<ul className="actions">
-                            <p>Sounds great! Sign me up.</p>
-                            <li><a href="/signup" className="button style3 large" onClick={() => handleRulesModal('/signup')}>Signup</a></li>
-							<p>I'm already a member.</p>
-                            <li><a href="/login" className="rules button style3 large">Log in</a></li>
-                            <p>I'm interested, continue as a guest.</p>
-                            <li><a href="/chat" className="button style3 large" onClick={(event) => { event.preventDefault(); handleRulesModal('/chat')}}>To The Lobby</a></li>
-                            <p>This is not for me.</p>
-							<li><a href="/removeCookies" className="button style3 large"> No, thanks </a></li>
+                            <p style={{marginBottom: '0'}}>Sounds great! Sign me up.</p>
+                            <li><a style={{marginBottom: '3em', marginTop: '1em'}} href="/signup" className="button style3 large" onClick={(event) => { event.preventDefault(); handleRulesModal('/signup')}} >Signup</a></li>
+							<p style={{marginBottom: '0'}}>I'm already a member.</p>
+                            <li><a style={{marginBottom: '3em', marginTop: '1em'}} href="/login" className="rules button style3 large"  onClick={(event) => { event.preventDefault(); handleRulesModal('/login')}} >Log in</a></li>
+                            <p style={{marginBottom: '0'}}>I'm interested, continue as a guest.</p>
+                            <li><a style={{marginBottom: '3em', marginTop: '1em'}} href="/chat" className="button style3 large" onClick={(event) => { event.preventDefault(); handleRulesModal('/chat')}} >To The Lobby</a></li>
+                            <p style={{marginBottom: '0'}}>This is not for me.</p>
+							<li><a style={{marginTop: '1em'}} onClick={handleRemoveCookies} className="button style3 large"> No, thanks </a></li>
 						</ul>
 					</div>
 				</section>
@@ -230,7 +230,7 @@ const LandingPage = ({ acceptedCookies }) => {
 									</div>
 								</div>
 								<ul className="actions special">
-									<li><a href="/signup" className="rules button style1 large">Get Started</a></li>
+									<li><a href="/signup" className="rules button style1 large" onClick={(event) => { event.preventDefault(); handleRulesModal('/signup')}} >Get Started</a></li>
 									
 								</ul>
 							</section>
