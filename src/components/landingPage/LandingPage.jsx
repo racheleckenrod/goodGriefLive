@@ -30,7 +30,7 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies,
             const newCheckboxState = !isCheckboxChecked;
             setIsCheckboxChecked(newCheckboxState);
 
-            setCookie('rulesCookie', newCheckboxState, { path: '/' });
+            setCookie('rulesCookie', newCheckboxState, {path: '/' , maxAge:( 365 * 24 * 60 * 60)});
         }
         }
         
