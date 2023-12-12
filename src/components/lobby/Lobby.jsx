@@ -14,8 +14,8 @@ const Lobby = () => {
         const fetchData = async () => {
             try {
                 // make a GET request to the server endpoint
-                const response = await axios.get('http://localhost:3030/chat', {
-                    withCredentials: true,
+                const response = await axios.get('/chat', {
+                    // withCredentials: true,
                 });
                 
                 if (!ignore) {

@@ -60,7 +60,7 @@ const App = () => {
   const handleConsent = () => {
     console.log("handling consent")
     setAcceptedCookies(true);
-    setCookie('consentCookie', true, { maxAge: 365 * 24 * 60 * 60, path: '/'});
+    setCookie('consentCookie', true, { maxAge: 365 * 24 * 60 * 60, path: '/', sameSite: 'none'});
    console.log(document.cookie.includes('consentCookie=true'), acceptedCookies)
   };
 
@@ -93,6 +93,12 @@ const App = () => {
 
       socket.connect();
           
+
+
+      socket.on('connect_error', (error) => {
+        console.error('Socket.IO connection error:', error.message);
+      });
+
         
       socket.on('disconnect', (reason) => {
         console.log(`socket disconnected from App... ${reason} attempting to reconnect`);

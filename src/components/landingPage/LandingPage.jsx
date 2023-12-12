@@ -98,7 +98,10 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies,
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:3030/api');
+            const response = await axios.get('/', {
+                // withCredentials: true,
+            });
+       
             console.log('Data from server:', response.data);
         } catch (error) {
             console.error('Error fetching data:', error)
