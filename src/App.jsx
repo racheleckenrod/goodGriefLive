@@ -60,7 +60,7 @@ const App = () => {
   const handleConsent = () => {
     console.log("handling consent")
     setAcceptedCookies(true);
-    setCookie('consentCookie', true, { maxAge: 365 * 24 * 60 * 60, path: '/'});
+    setCookie('consentCookie', true, { maxAge: 365 * 24 * 60 * 60, path: '/', sameSite: 'none'});
    console.log(document.cookie.includes('consentCookie=true'), acceptedCookies)
   };
 
@@ -69,7 +69,7 @@ const App = () => {
   const handleRemoveCookies = async () => {
     console.log("handle remove cookies")
     try {
-        const response = await axios.get('/api/removeCookies');
+        const response = await axios.get('/removeCookies');
         if (response.status === 200) {
             setMessage(response.data.message); 
             setAcceptedCookies(false);
@@ -93,7 +93,10 @@ const App = () => {
 
       socket.connect();
           
-        
+       console.log(socket)
+
+       
+
       socket.on('disconnect', (reason) => {
         console.log(`socket disconnected from App... ${reason} attempting to reconnect`);
       });

@@ -20,6 +20,11 @@ const socket = io('http://localhost:3030', {
   autoConnect: false,
 });
 
+
+socket.on('connect_error', (error) => {
+  console.error('Socket.IO connection error:', error.message);
+});
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   
   <HelmetProvider>

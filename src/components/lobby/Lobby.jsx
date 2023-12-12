@@ -14,7 +14,7 @@ const Lobby = () => {
         const fetchData = async () => {
             try {
                 // make a GET request to the server endpoint
-                const response = await axios.get('http://localhost:3030/chat', {
+                const response = await axios.get('/chat', {
                     withCredentials: true,
                 });
                 
@@ -31,7 +31,7 @@ const Lobby = () => {
         fetchData();
 
          return () => {
-          console.log("LandingPage unmounted");
+          console.log("Lobby unmounted");
         ignore = true;
         };
     }, []);

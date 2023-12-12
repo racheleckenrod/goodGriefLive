@@ -30,7 +30,7 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies,
             const newCheckboxState = !isCheckboxChecked;
             setIsCheckboxChecked(newCheckboxState);
 
-            setCookie('rulesCookie', newCheckboxState, {path: '/' , maxAge:( 365 * 24 * 60 * 60)});
+            setCookie('rulesCookie', newCheckboxState, {path: '/' , maxAge:( 365 * 24 * 60 * 60), sameSite: 'none'});
         }
         }
         
@@ -64,7 +64,7 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies,
             setIsRulesModalOpen(true);
             setModalRoute(route);
         } else {
-            console.log("RUNNING THE ELSE")
+            console.log("RUNNING THE ELSE", route)
             navigate(route);
         }
     }
@@ -98,7 +98,10 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies,
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:3030/api');
+            const response = await axios.get('/', {
+                    withCredentials: true,
+                });
+           
             console.log('Data from server:', response.data);
         } catch (error) {
             console.error('Error fetching data:', error)

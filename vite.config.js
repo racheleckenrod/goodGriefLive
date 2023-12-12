@@ -6,11 +6,26 @@ export default defineConfig({
   plugins: [react()],
   server: {
     cors: true, credentials: true,
-  //   proxy: {
-  //     '/': {
-  //       target: 'http://localhost:3030',
-  //       changeOrigin: true
-  //     }
-  //   }
-  } 
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3030',
+        changeOrigin: true,
+        cookieDomainRewrite: 'localhost',
+        // rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+      '/socket.io': {
+        target: 'http://localhost:3030',
+        changeOrigin: true,
+        cookieDomainRewrite: 'localhost',
+        ws: true,
+        headers: {
+          'Origin': 'http://localhost:5173',
+          // Add other headers if needed
+        },
+
+        // rewrite: (path) => path.replace(/^\/api/, ''),
+        
+      },
+    },
+  },
 });
