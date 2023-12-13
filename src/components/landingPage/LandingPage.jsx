@@ -30,7 +30,9 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies,
             const newCheckboxState = !isCheckboxChecked;
             setIsCheckboxChecked(newCheckboxState);
 
-            setCookie('rulesCookie', newCheckboxState, {path: '/' , maxAge:( 365 * 24 * 60 * 60), sameSite: 'none'});
+            setCookie('rulesCookie', newCheckboxState, {path: '/' , maxAge:( 365 * 24 * 60 * 60)});
+            const checkCookie = document.cookie.includes('rulesCookie=true')
+            console.log("checking cookie=", checkCookie)
         }
         }
         

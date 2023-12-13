@@ -143,9 +143,9 @@ const App = () => {
         });
           
 
-      socket.on('connect', () => {
-        console.log("socket connected", socket)
-      });
+      // socket.on('connect', () => {
+      //   console.log("socket connected", socket)
+      // });
 
       return () => {
         socket.off('connect');
