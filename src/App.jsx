@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import { useSocket } from  './utils/socketContext.jsx';
 import { useCookies } from 'react-cookie';
 import axios from '/src/utils/axiosConfig';
@@ -12,10 +12,10 @@ import Login from './components/Login';
 import Signup from './components/signup/Signup';
 import Welcome from './components/Welcome.jsx';
 import Profile from './components/profile/Profile'
-import ChatRoom from './components/chatRoom/ChatRoom';
-// import $ from 'jquery';
+import Chat from './components/chatRoom/Chat';
+import ChatRoom from './components/chatRoom/ChatRoom.jsx';
 
-let userStatus = "guest";
+
 
 const App = () => {
 
@@ -25,6 +25,7 @@ const App = () => {
   const [acceptedCookies, setAcceptedCookies] = useState(document.cookie.includes('consentCookie=true'));
   const socket = useSocket();
   const [agreedToRules, setAgreedToRules] = useState(false);
+  const [userStatus, setUserStatus] = useState('guest')
 
 
   useEffect(() => {
@@ -124,8 +125,8 @@ const App = () => {
   
       socket.emit('setStatus', userStatus)
 
-      socket.on('setStatus', (userStatus) => {
-        userStatus = userStatus;
+      socket.on('setStatus', (onlineStatus) => {
+        setUserStatus(onlineStatus);
         console.log("APP userStatus=", userStatus, socket.id);
         });
 
@@ -160,34 +161,32 @@ const App = () => {
   if (!acceptedCookies) {
     console.log("not accepted cookies in the route", acceptedCookies)
     return (
-      <div>
+      <>
       
       {<CookieBanner setAcceptedCookies={setAcceptedCookies} setMessage={setMessage} />}
       <Routes>
-        <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} handleRemoveCookies={handleRemoveCookies} message={message} />} />
+        <Route exact path="/" element={<LandingPage userStatus={userStatus} acceptedCookies={acceptedCookies} setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} handleRemoveCookies={handleRemoveCookies} message={message} />} />
         <Route exact path="/privacyPolicy" element={<PrivacyPolicy acceptedCookies={acceptedCookies} handleRemoveCookies={handleRemoveCookies} handleConsent={handleConsent} message={message} />} />
       </Routes>
-    </div>
+    </>
     );
 
   }
   
   return (
-    // <Router>
-      <div>
+      <>
         <Routes>
           <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} handleRemoveCookies={handleRemoveCookies} message={message} />} />
           <Route exact path="/privacyPolicy" element={<PrivacyPolicy acceptedCookies={acceptedCookies} handleRemoveCookies={handleRemoveCookies} message={message} />} />
-          <Route exact path="/chat" element={<Lobby />} />
-          <Route exact path="/signup" element={<Signup />} />
-          <Route exact path='/login' element={<Login />} />
-          <Route exact path='/welcome' element={<Welcome />} />
-          <Route exact path='/profile' element={<Profile />} />
+          <Route exact path="/signup" element={<Signup  userStatus={userStatus} />} />
+          <Route exact path='/login' element={<Login  userStatus={userStatus} />} />
+          <Route exact path='/welcome' element={<Welcome  userStatus={userStatus} />} />
+          <Route exact path='/profile' element={<Profile  userStatus={userStatus} />} />
+          <Route exact path='/chat/:room/*' element={<ChatRoom userStatus={userStatus} />} />
+          <Route exact path="/chat" element={<Lobby userStatus={userStatus} />} />
         </Routes>
-      </div>
-     
-    // </Router>
-  )
-}
+      </>
+    )
+};
 
-export default App;
+export default  App;

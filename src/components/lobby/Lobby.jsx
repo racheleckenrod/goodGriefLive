@@ -2,11 +2,48 @@ import React, { useEffect, useState } from 'react';
 import axios from '/src/utils/axiosConfig';
 import '/src/assets/Bradstyle.css';
 import Header from '../headers/Header';
-import ChatRoom from '/src/components/chatRoom/ChatRoom'
+import Chat from '/src/components/chatRoom/Chat'
+import LoginModal from '../modals/LoginModal';
 // import '/src/assets/js/script.js';
 
-const Lobby = () => {
+const Lobby = ({ userStatus }) => {
     const [data, setData] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const [modalText, setModalText] = useState('You need to be logged in.');
+
+    console.log("Lobby userStatus=", userStatus)
+
+
+    const handleOpenModal = (action) => {
+        if (userStatus !== 'loggedIn' ){
+             setModalText(getModaltext(action));
+            setIsOpen(true);
+        } else {
+            window.location.href = dataroute;
+        }
+       
+    };
+
+    const handleCloseModal = () => {
+        setIsOpen(false);
+    };
+
+    const getModalText = (action) => {
+        const notLoggedInMessage = 'You need to be logged in to ';
+
+        const actionMessages = {
+          chatRoom: notLoggedInMessage + 'enter that Chat Room.',
+          profile: notLoggedInMessage + 'to have a Profile.',
+          comment: notLoggedInMessage + 'comment on Posts.',
+          noAccess: 'Guest users do not have access to user Profiles.',
+          feed: notLoggedInMessage + 'to see our Community posts.',
+          newPost: notLoggedInMessage + 'make a new Post.',
+        };
+    
+        return actionMessages[action] || '';
+    
+    }
+
 
     useEffect(() => {
         let ignore = false;
@@ -47,6 +84,7 @@ const Lobby = () => {
 		        <div id="page-wrapper">
 
 			       <Header data={data} />
+                   <LoginModal isOpen={isOpen} onClose={handleCloseModal} />
             
                     { /* Highlights */}
 				    <section id="highlights" className="wrapper style3">
@@ -91,7 +129,7 @@ const Lobby = () => {
 						    </div>
 					    </div>
 				    </section>
-                    { data && <ChatRoom data={data} />}
+                    { data && <Chat data={data} />}
                     {/* <section id="chat" className="wrapper style1">
                         <div className="title">The Lobby Chat Room</div>
                         <section id="" className="wrapper style1">

@@ -18,11 +18,11 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("/api/login", formData, {
+            const response = await axios.post("/login", formData, {
                 withCredentials: true,
             });
             
-            console.log("Form submitted", formData, response.data, response.data.success);
+            console.log("Form submitted", formData, response.data, response.data.success, response);
             
             if (response.data.success) {
                 navigate("/chat");

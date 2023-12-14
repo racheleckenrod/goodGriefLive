@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from '/src/utils/axiosConfig';
 import { useNavigate } from 'react-router-dom';
+import NavPanel from '../navBar/NavPanel';
+import NavBar from '../navBar/NavBar';
 
 
 const Header = ({ data }) => {
@@ -45,13 +47,14 @@ const handleLogout = async () => {
                         </div>
 
                         {/*  Nav */}
-                        <nav id="nav">
+                        <NavBar data={data} />
+                        {/* <nav id="nav">
                             <ul>
                                 <li className="current"><a href="/chat">the Lobby</a></li>
                                 <li>
                                     <a href="/chat">Chat Rooms</a>
                                     <ul>
-                                        <li><a href={`/chat/room/Child/?_id=${data._id}`} className="openModalButton" data-modal="chatRoom">I have lost a child.</a></li>
+                                        <li><a href={`/chat/Child/?_id=${data._id}`} className="openModalButton" data-modal="chatRoom">I have lost a child.</a></li>
                                         <li><a href={`chat/room/Parent/?_id=${data._id}`} className="openModalButton" data-modal="chatRoom">I have lost a parent.</a></li>
                                         <li><a href={`chat/room/Spouse%2FPartner/?_id=${data._id}`} className="openModalButton" data-modal="chatRoom">I have lost my spouse/partner.</a></li>
                                         <li><a href={`chat/room/Sibling/?_id=${data._id}`} className="openModalButton" data-modal="chatRoom">I have lost a sibling.</a></li>
@@ -76,8 +79,9 @@ const handleLogout = async () => {
                                 <li><a href="/feed" className="openModalButton" data-modal="feed">Community</a></li>
                                 <li><a onClick={handleLogout}>Logout</a></li>
                             </ul>
-                        </nav>
+                        </nav> */}
 				    </section>
+                {/* <NavPanel data={data}/> */}
                 {/* </div> */}
             </div>
         </div>

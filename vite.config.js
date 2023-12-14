@@ -10,22 +10,23 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:3030',
         changeOrigin: true,
-        cookieDomainRewrite: 'localhost',
+        // cookieDomainRewrite: 'localhost',
         // rewrite: (path) => path.replace(/^\/api/, ''),
       },
       '/socket.io': {
         target: 'http://localhost:3030',
         changeOrigin: true,
-        cookieDomainRewrite: 'localhost',
-        ws: true,
-        headers: {
-          'Origin': 'http://localhost:5173',
-          // Add other headers if needed
-        },
-
-        // rewrite: (path) => path.replace(/^\/api/, ''),
         
-      },
-    },
-  },
+        
+        // cookieDomainRewrite: { 'localhost': '192.168.1.173',},
+        // ws: true,
+        // headers: {
+        //   'Origin': 'http://localhost:5173',
+        //   // Add other headers if needed
+        // },
+
+      }
+    }
+  } 
+
 });

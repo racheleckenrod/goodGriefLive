@@ -100,10 +100,11 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies,
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('/', {
+            const response = await axios.get('/chat/room/child/', {
                     withCredentials: true,
                 });
-           
+                console.log('Request URL:', response.config.url);
+
             console.log('Data from server:', response.data);
         } catch (error) {
             console.error('Error fetching data:', error)
@@ -112,147 +113,142 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies,
 
 
     return ( 
-        <div>
-            {/* <PageHead /> */}
-                <div id="page-wrapper">
-                {/* <h1>Welcome to the landing Page</h1> */}
+        <div id="pageWrapper">
 
-                    {isRulesModalOpen && 
-                    (<RulesModal
-                    isOpen={isRulesModalOpen}
-                    onClose={closeRulesModal}
-                    modalRoute={modalRoute}
-                    onContinue={handleContinue}
-                    handleCheckboxChange={handleCheckboxChange}
-                    />
-                    )}
+            {isRulesModalOpen && 
+            (<RulesModal
+            isOpen={isRulesModalOpen}
+            onClose={closeRulesModal}
+            modalRoute={modalRoute}
+            onContinue={handleContinue}
+            handleCheckboxChange={handleCheckboxChange}
+            />
+            )}
 
-            {/* <div> */}
-            <GuestHeader />
-            {/* </div> */}
         
-			{/* <!-- Intro --> */}
-				<section id="intro" className="wrapper style1">
-                {/* <NavBar /> */}
+            <GuestHeader />
+        
+    
+            {/* Intro */}
+            <section id="intro" className="wrapper style1">
 
-					<div className="title">Join Our Community</div>
-					<div className="container">
-						<p className="style1">You don't need to be alone in your grief.</p>
-						<p className="style2">
-							Connect with real people <br className="mobile-hide" />who know what you are going through.
-							
-						</p>
-						<p className="style1">Share photos, poetry, thoughts, feelings and more  &ndash;  Right here where people care. </p>
-                        <div>
-                            <p>Our Story and Rules</p>
-                            <p>After spending most of my life, at this point, without my child alive on Earth, I have put together this site that I hope can bring you great comfort in your times of need, and joy in celebrating with others successes we can share. It is my hope that you are supported when you need it most, and don't need to have a reason to stay and connect deeply with those who can offer a safe and supportive environment. Please be aware that being a member of this community is a privilege, and we expect you to follow certain rules in order to participate. Kindness is mandatory. As is maintaining respect for others as well as yourself. Violating these rules will result in you being banned from the site. If you ever feel bullied or experience abuse, we want to know about it right away. We will make every effort to keep this an emotionally safe space. May you find compassionate understanding here and enjoy sharing memories of your loved ones, challenges you face, and victories you have- as you offer yourself to those who have an understanding of your losses. May we learn to support each other. </p>
+                <div className="title">Join Our Community</div>
 
-							{/* <!-- Checkbox --> */}
-							<label htmlFor="agreeCheckbox">I agree to the rules</label>
-							<input type="checkbox" id="agreeCheckbox" checked={isCheckboxChecked} onChange={handleCheckboxChange} />
-
-
-                            <p>Guests</p>
-                            <p>You are welcome to participate in a limited way as a guest. We have a live chat in our lobby where you can chat with other guests and users of the site. We encourage you to sign up and become a member. You will then be able to create your own profile, share your story, and post photos, comments and likes. You can view other members profiles and get to know who you are talking to. We also have a community feed that stays updated with users posts. The three most liked posts display in The Lobby.</p>
-
-                        </div>
+                <div className="container">
+                    <p className="style1">You don't need to be alone in your grief.</p>
+                    <p className="style2">
+                        Connect with real people <br className="mobile-hide" />who know what you are going through.
                         
-						<ul className="actions">
-                            <p style={{marginBottom: '0'}}>Sounds great! Sign me up.</p>
-                            <li><a style={{marginBottom: '3em', marginTop: '1em'}} href="/signup" className="button style3 large" onClick={(event) => { event.preventDefault(); handleRulesModal('/signup')}} >Signup</a></li>
-							<p style={{marginBottom: '0'}}>I'm already a member.</p>
-                            <li><a style={{marginBottom: '3em', marginTop: '1em'}} href="/login" className="rules button style3 large"  onClick={(event) => { event.preventDefault(); handleRulesModal('/login')}} >Log in</a></li>
-                            <p style={{marginBottom: '0'}}>I'm interested, continue as a guest.</p>
-                            <li><a style={{marginBottom: '3em', marginTop: '1em'}} href="/chat" className="button style3 large" onClick={(event) => { event.preventDefault(); handleRulesModal('/chat')}} >To The Lobby</a></li>
-                            <p style={{marginBottom: '0'}}>This is not for me.</p>
-							<li><a style={{marginTop: '1em'}} onClick={handleRemoveCookies} className="button style3 large"> No, thanks </a></li>
-                            {message && <p>{message}</p>}
-                        </ul>
-					</div>
-				</section>
+                    </p>
+                    <p className="style1">Share photos, poetry, thoughts, feelings and more  &ndash;  Right here where people care. </p>
+                    <div>
+                        <p>Our Story and Rules</p>
+                        <p>After spending most of my life, at this point, without my son, Sam, alive on Earth, I have put together this site that I hope can bring you great comfort in your times of need, and joy in celebrating with others successes we can share. It is my hope that you are supported when you need it most, and don't need to have a reason to stay and connect deeply with those who can offer a safe and supportive environment. Please be aware that being a member of this community is a privilege, and we expect you to follow certain rules in order to participate. Kindness is mandatory. As is maintaining respect for others as well as yourself. Violating these rules will result in you being banned from the site. If you ever feel bullied or experience abuse, we want to know about it right away. We will make every effort to keep this an emotionally safe space. May you find compassionate understanding here and enjoy sharing memories of your loved ones, challenges you face, and victories you have- as you offer yourself to those who have an understanding of your losses. May we learn to support each other. </p>
+                        {/* <!-- Checkbox --> */}
+                        <div style={{marginBottom: '2em'}}>
+                            <label htmlFor="agreeCheckbox">I agree to the rules</label>
+                            <input type="checkbox" id="agreeCheckbox" checked={isCheckboxChecked} onChange={handleCheckboxChange} />
+                        </div>
 
-			    {/* <!-- Main --> */}
-				<section id="main" className="wrapper style2">
-					<div className="title">The Details</div>
-					<div className="container">
+                        <p style={{marginBottom: '0'}}>Guests:</p>
+                        <p>You are welcome to participate in a limited way as a guest. We have a live chat in our lobby where you can chat with other guests and users of the site. We encourage you to sign up and become a member. You will then be able to create your own profile, share your story, and post photos, comments and likes. You can view other members profiles and get to know who you are talking to. We also have a community feed that stays updated with users posts. The three most liked posts display in The Lobby.</p>
 
-						{/* <!-- Image --> */}
-							<a href="#" className="image featured">
-								<img src="images/pic01.jpg" alt="" />
-							</a>
+                    </div>
+                    
+                    <ul className="actions">
+                        <p style={{marginBottom: '0'}}>Sounds great! Sign me up.</p>
+                        <li><a style={{marginBottom: '3em', marginTop: '1em'}} href="/signup" className="button style3 large" onClick={(event) => { event.preventDefault(); handleRulesModal('/signup')}} >Signup</a></li>
+                        <p style={{marginBottom: '0'}}>I'm already a member.</p>
+                        <li><a style={{marginBottom: '3em', marginTop: '1em'}} href="/login" className="rules button style3 large"  onClick={(event) => { event.preventDefault(); handleRulesModal('/login')}} >Log in</a></li>
+                        <p style={{marginBottom: '0'}}>I'm interested, continue as a guest.</p>
+                        <li><a style={{marginBottom: '3em', marginTop: '1em'}} href="/chat" className="button style3 large" onClick={(event) => { event.preventDefault(); handleRulesModal('/chat')}} >To The Lobby</a></li>
+                        <p style={{marginBottom: '0'}}>This is not for me.</p>
+                        <li><a style={{marginTop: '1em'}} onClick={handleRemoveCookies} className="button style3 large"> No, thanks </a></li>
+                        {message && <p>{message}</p>}
+                    </ul>
+                </div>
+            </section>
 
-						{/* <!-- Features --> */}
-							<section id="features">
-								<header className="style1">
-									<h2>We have chat rooms centered around your loss.</h2>
-									<p>Please sign up or log in to enter chat rooms.</p>
-								</header>
-								<div className="feature-list">
-									<div className="row">
-										<div className="col-6 col-12-medium">
-											<section>
-												<h3 className="icon solid fa-baby">I have lost a child.</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
-											</section>
-										</div>
-										<div className="col-6 col-12-medium">
-											<section>
-												<h3 className="icon solid fa-users">I have lost a parent.</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
-											</section>
-										</div>
-										<div className="col-6 col-12-medium">
-											<section>
-												<h3 className="icon solid fa-people-arrows">I have lost my spouse/partner.</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
-											</section>
-										</div>
-										<div className="col-6 col-12-medium">
-											<section>
-												<h3 className="icon solid fa-people-carry">I have lost a sibling.</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
-											</section>
-										</div>
-										<div className="col-6 col-12-medium">
-											<section>
-												<h3 className="icon solid fa-user">I have lost a loved one to suicide.</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
-											</section>
-										</div>
-										<div className="col-6 col-12-medium">
-											<section>
-												<h3 className="icon solid fa-user-friends">I have lost a friend.</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
-											</section>
-										</div>
-										<div className="col-6 col-12-medium">
-											<section>
-												<h3 className="icon solid fa-person-booth">I am suffering from a community tragedy.</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
-											</section>
-										</div>
-										<div className="col-6 col-12-medium">
-											<section>
-												<h3 className="icon solid fa-user-injured">My grief is different.</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
-											</section>
-										</div>
-									</div>
-								</div>
-								<ul className="actions special">
-									<li><a href="/signup" className="rules button style1 large" onClick={(event) => { event.preventDefault(); handleRulesModal('/signup')}} >Get Started</a></li>
-									
-								</ul>
-							</section>
+            {/* <!-- Main --> */}
+            <section id="main" className="wrapper style2">
+                <div className="title">The Details</div>
+                <div className="container">
 
-					</div>
+                    {/* <!-- Image --> */}
+                        <a href="#" className="image featured">
+                            <img src="images/pic01.jpg" alt="" />
+                        </a>
 
-                </section>
-			
-                {/* <!-- Footer --> */}
-                <Footer />
+                    {/* <!-- Features --> */}
+                        <section id="features">
+                            <header className="style1">
+                                <h2>We have chat rooms centered around your loss.</h2>
+                                <p>Please sign up or log in to enter chat rooms.</p>
+                            </header>
+                            <div className="feature-list">
+                                <div className="row">
+                                    <div className="col-6 col-12-medium">
+                                        <section>
+                                            <h3 className="icon solid fa-baby">I have lost a child.</h3>
+                                            <p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
+                                        </section>
+                                    </div>
+                                    <div className="col-6 col-12-medium">
+                                        <section>
+                                            <h3 className="icon solid fa-users">I have lost a parent.</h3>
+                                            <p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
+                                        </section>
+                                    </div>
+                                    <div className="col-6 col-12-medium">
+                                        <section>
+                                            <h3 className="icon solid fa-people-arrows">I have lost my spouse/partner.</h3>
+                                            <p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
+                                        </section>
+                                    </div>
+                                    <div className="col-6 col-12-medium">
+                                        <section>
+                                            <h3 className="icon solid fa-people-carry">I have lost a sibling.</h3>
+                                            <p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
+                                        </section>
+                                    </div>
+                                    <div className="col-6 col-12-medium">
+                                        <section>
+                                            <h3 className="icon solid fa-user">I have lost a loved one to suicide.</h3>
+                                            <p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
+                                        </section>
+                                    </div>
+                                    <div className="col-6 col-12-medium">
+                                        <section>
+                                            <h3 className="icon solid fa-user-friends">I have lost a friend.</h3>
+                                            <p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
+                                        </section>
+                                    </div>
+                                    <div className="col-6 col-12-medium">
+                                        <section>
+                                            <h3 className="icon solid fa-person-booth">I am suffering from a community tragedy.</h3>
+                                            <p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
+                                        </section>
+                                    </div>
+                                    <div className="col-6 col-12-medium">
+                                        <section>
+                                            <h3 className="icon solid fa-user-injured">My grief is different.</h3>
+                                            <p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate et magna feugiat laoreet vel velit lorem.</p>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul className="actions special">
+                                <li><a href="/signup" className="rules button style1 large" onClick={(event) => { event.preventDefault(); handleRulesModal('/signup')}} >Get Started</a></li>
+                                
+                            </ul>
+                        </section>
 
-            </div>
+                </div>
+
+            </section>
+        
+            {/* <!-- Footer --> */}
+            <Footer />
 
         </div>
     );

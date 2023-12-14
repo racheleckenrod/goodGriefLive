@@ -1,13 +1,13 @@
 import React from 'react';
 import axios from '/src/utils/axiosConfig';
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../navBar/NavBar';
+import GuestNavBar from '../navBar/GuestNavBar';
 
 
 
 
 
-const Header = ({ data }) => {
+const GuestHeader = ({ data }) => {
 
     const navigate = useNavigate();
 
@@ -33,64 +33,26 @@ const Header = ({ data }) => {
 
 
         <div>
-            {/* <PageHead /> */}
-            <div>
+          
 
-                <div>
+            {/* Header */}
+            <section id="header" className="wrapper">
 
-                    {/* Header */}
-                    <section id="header" className="wrapper">
+                {/*  Logo  */}
+                <div id="logo">
+                    <h1><a href="/">Live Grief Support</a></h1>
+                    <p>A special place to honor our loved ones.</p>
 
-                        {/*  Logo  */}
-                        <div id="logo">
-                            <h1><a href="/">Live Grief Support</a></h1>
-                            <p>A special place to honor our loved ones.</p>
-
-                        </div>
-
-                        {/*  Nav  */}
-                        <NavBar />
-                        {/* <nav id="nav">
-                            <ul>
-                                <li className="current"><a href="/chat" className="rules">The Lobby</a></li>
-                                <li>
-                                    <a href="#" className="loginReqRoute" data-modal="chatRoom">Chat Rooms</a>
-                                    <ul>
-                                        <li><a href="/login" className="rules" data-route="/login">Login</a></li>
-                                        <li><a href="/signuo" className="rules" data-route="/signup">Sign Up</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="/profile" className="loginReqRoute" data-modal="profile" >Profile</a>
-                                    <ul>
-                                        <li><a href="/login" className="rules" data-route="/login" >Login</a></li>
-                                        <li><a href="/signup" className="rules" data-route="/signup">Sign Up</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="/post/newPost/:id" className="loginReqRoute" data-modal="newPost">New Post</a>
-                                    <ul>
-                                        <li><a href="/login" className="rules" data-route="/login">Login</a></li>
-                                        <li><a href="/signup" className="rules" data-route="/signup">Sign Up</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="/feed" className="loginReqRoute" data-modal="feed" >Community</a>
-                                    <ul>
-                                        <li><a href="/login" className="rules" data-route="/login">Login</a></li>
-                                        <li><a href="#" className="rules" data-route="/signup">Sign Up</a></li>
-                                    </ul>
-                                </li>
-                                <li><a onClick={handleLogout} style={{ cursor: 'pointer '}}>Logout</a></li>
-                            </ul>
-                        </nav> */}
-
-                    </section>
                 </div>
-            </div>
+
+                {/*  Nav  */}
+                <GuestNavBar />
+
+            </section>
+             
 
         </div>
     );
 };
 
-export default Header;
+export default GuestHeader;
