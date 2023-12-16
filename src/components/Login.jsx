@@ -34,6 +34,9 @@ const Login = () => {
         }
     };
 
+    // const {handlePasswordResetRequest} = () => {
+    // };
+
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData({
@@ -41,6 +44,7 @@ const Login = () => {
             [name]: value,
         });
     };
+
 
 
     return (
@@ -90,6 +94,8 @@ const Login = () => {
 
                             <div className="">
                                 <a href="/passwordResetRequest" className="button style3 large">Forgot Password?</a>
+
+                                {/* <a href="/passwordResetRequest" onClick={handlePasswordResetRequest} className="button style3 large">Forgot Password?</a> */}
                             </div>
 
                         </section>

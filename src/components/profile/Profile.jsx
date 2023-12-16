@@ -12,7 +12,7 @@ const Profile = () => {
         const fetchData = async () => {
             try {
                 // make a GET request to the server endpoint
-                const response = await axios.get('/api/profile', {
+                const response = await axios.get('/profile', {
                     withCredentials: true,
                 });
                 
@@ -76,9 +76,11 @@ const Profile = () => {
                                                     <header>
                                                         <h2>{ data.posts[data.posts.length-1].title }</h2>
                                                     </header>
-                                                    <a href="/post/{ data.posts[data.posts.length-1]._id }" className="image featured"><img src="{ data.posts[data.posts.length-1].image }" alt="latest post" /></a>
+                                                    <a href={`/post/{ data.posts[data.posts.length-1]._id }`} className="image featured">
+                                                        <img src={ data.posts[data.posts.length-1].image } alt="latest post" />
+                                                    </a>
                                                     <p>{ data.posts[data.posts.length-1].caption }</p>
-                                                    <a href="/post/{ data.posts[data.posts.length-1]._id }" className="button style1">See Post</a>
+                                                    <a href={`/post/{ data.posts[data.posts.length-1]._id }`} className="button style1">See Post</a>
                                                 </section>
                                             </div>
                                         ) : null}
@@ -89,9 +91,11 @@ const Profile = () => {
                                                 <header>
                                                     <h2>{ data.posts[data.posts.length-2].title }</h2>
                                                 </header>
-                                                <a href="/post/{ data.posts[data.posts.length-2]._id }" className="image featured"><img src="{ data.posts[data.posts.length-2].image }" alt="" /></a>
+                                                <a href={`/post/{ data.posts[data.posts.length-2]._id }`} className="image featured">
+                                                    <img src={ data.posts[data.posts.length-2].image } alt="second latest post" />
+                                                </a>
                                                 <p>{ data.posts[data.posts.length-2].caption }</p>
-                                                <a href="/post/{ data.posts[data.posts.length-2]._id }" className="button style1">See Post</a>
+                                                <a href={`/post/{ data.posts[data.posts.length-2]._id }`} className="button style1">See Post</a>
                                                 </section>
                                             </div>
                                         ) : null }
@@ -119,8 +123,10 @@ const Profile = () => {
                                         <li>
                                             { data.posts.length > 0 ? (
                                             <article className="box post-excerpt">
-                                            <a href="/post/{ data.likedPosts[0]._id }" className="image left"><img src={ data.likedPosts[0].image } alt="" /></a>
-                                            <h3><a href="/post/{ data.likedPosts[0]._id }">{ data.likedPosts[0].title}</a></h3>
+                                            <a href={`/post/{ data.likedPosts[0]._id }`} className="image left">
+                                                <img src={ data.likedPosts[0].image } alt="Most liked Post" />
+                                            </a>
+                                            <h3><a href={`/post/{ data.likedPosts[0]._id }`} >{ data.likedPosts[0].title}</a></h3>
                                             <p>{ data.likedPosts[0].caption }</p>
                                             </article>
                                             ) : null }
@@ -128,8 +134,10 @@ const Profile = () => {
                                         <li>
                                             { data.posts.length > 1 ? (
                                             <article className="box post-excerpt">
-                                            <a href="/post/{ data.likedPosts[1]._id }" className="image left"><img src={ data.likedPosts[1].image } alt="" /></a>
-                                            <h3><a href="/post/{ data.likedPosts[1]._id }">{ data.likedPosts[1].title}</a></h3>
+                                            <a href={`/post/{ data.likedPosts[1]._id }`} className="image left">
+                                                <img src={ data.likedPosts[1].image } alt="second most liked post" />
+                                            </a>
+                                            <h3><a href={`/post/{ data.likedPosts[1]._id }`}>{ data.likedPosts[1].title}</a></h3>
                                             <p>{ data.likedPosts[1].caption }</p>
                                             </article>
                                             ) : null }
@@ -137,8 +145,10 @@ const Profile = () => {
                                         <li>
                                             { data.posts.length > 2 ? (
                                             <article className="box post-excerpt">
-                                            <a href="/post/{ data.likedPosts[2]._id }" className="image left"><img src={ data.likedPosts[2].image } alt="" /></a>
-                                            <h3><a href="/post/{ data.likedPosts[2]._id }">{ data.likedPosts[2].title}</a></h3>
+                                            <a href={`/post/{ data.likedPosts[2]._id }`} className="image left">
+                                                <img src={ data.likedPosts[2].image } alt="Third most liked Post" />
+                                            </a>
+                                            <h3><a href={`/post/{ data.likedPosts[2]._id }`}>{ data.likedPosts[2].title}</a></h3>
                                             <p>{ data.likedPosts[2].caption }</p>
                                             </article>
                                             ) : null }
@@ -171,10 +181,10 @@ const Profile = () => {
                     <div className="row aln-center">
 
                         {data.posts.map((post) => (
-                        <div className="col-4 col-12-medium">
+                        <div key={post._id} className="col-4 col-12-medium">
                             <section className="highlight">
                                 <ul className="actions">
-                                    <li key={post.id}>
+                                    <li>
                                         <a href={`/post/${ post._id}`}>
                                             <img className="image fit featured" src={ post.image} />
                                         </a>
@@ -197,7 +207,7 @@ const Profile = () => {
             </section>
 
 
-            <section id="highlights" className="wrapper style2">
+            <section id="" className="wrapper style2">
                 <div className="title">Create New Post</div>
                 <div className="container">
                     <div className="row mt-5">

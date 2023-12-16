@@ -100,7 +100,7 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies,
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('/chat/room/child/', {
+            const response = await axios.get('/', {
                     withCredentials: true,
                 });
                 console.log('Request URL:', response.config.url);

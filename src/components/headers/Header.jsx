@@ -13,7 +13,7 @@ const navigate = useNavigate();
 const handleLogout = async () => {
 
     try {
-        const response = await axios.get('/api/logout');
+        const response = await axios.get('/logout');
 
         console.log(response.data);
 
@@ -47,7 +47,7 @@ const handleLogout = async () => {
                         </div>
 
                         {/*  Nav */}
-                        <NavBar data={data} />
+                        <NavBar data={data} handleLogout={handleLogout} />
                         {/* <nav id="nav">
                             <ul>
                                 <li className="current"><a href="/chat">the Lobby</a></li>

@@ -14,6 +14,8 @@ import Welcome from './components/Welcome.jsx';
 import Profile from './components/profile/Profile'
 import Chat from './components/chatRoom/Chat';
 import ChatRoom from './components/chatRoom/ChatRoom.jsx';
+import PasswordResetRequest from './components/PasswordResetRequest';
+import PasswordReset from './components/PasswordReset'
 
 
 
@@ -182,8 +184,10 @@ const App = () => {
           <Route exact path='/login' element={<Login  userStatus={userStatus} />} />
           <Route exact path='/welcome' element={<Welcome  userStatus={userStatus} />} />
           <Route exact path='/profile' element={<Profile  userStatus={userStatus} />} />
-          <Route exact path='/chat/:room/*' element={<ChatRoom userStatus={userStatus} />} />
+          <Route exact path='/chat/room/:room/' element={<ChatRoom userStatus={userStatus} />} />
           <Route exact path="/chat" element={<Lobby userStatus={userStatus} />} />
+          <Route exact path='/passwordResetRequest' element={<PasswordResetRequest /> }/>
+          <Route exact path='/passwordReset/:token' element={<PasswordReset />} />
         </Routes>
       </>
     )

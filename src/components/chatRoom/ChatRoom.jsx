@@ -11,7 +11,9 @@ const ChatRoom = () => {
     const [searchParams] = useSearchParams();
     const _id = searchParams.get('_id');
 
-    console.log("********room from params:", {room}, {_id})
+    console.log("********room from params:", {room}, room, {_id})
+
+    const encodedRoom = encodeURIComponent(room)
 
     useEffect(() => {
         let ignore = false;
@@ -19,17 +21,15 @@ const ChatRoom = () => {
         const fetchData = async () => {
             try {
                 // make a GET request to the server endpoint
-                console.log(room, "from fetch")
-                // const response = await axios.get('/chat/room/child/', {
-                //     withCredentials: true,
-                // });
-                const response = await axios.get(`/chat/room/Sample/`, {
+                console.log("CHECKON THIs", {room}, "from fetch")
+               
+                const response = await axios.get(`/chat/room/${encodedRoom}/`, {
                     withCredentials: true,
                 });
 
                 // if (!ignore) {
                     setData(response.data);
-                    console.log("DATA BACK FROM CHATROOM this the console log?", response.data)
+                    console.log("DATA BACK FROM CHATROOM:", response.data)
                     console.log("ROOM DATA=", data)
                     console.log('Request URL:', response.config.url);
                 // }
