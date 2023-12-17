@@ -43,7 +43,7 @@ const handleLogout = async () => {
                         
                             <p>A special place to honor our loved ones</p>
                             <p>Welcome to Good Grief Live.</p>
-                            <p>We are glad you are here, { data.userName }.</p>
+                            <p>We are glad you are here, { data.user.userName }.</p>
                         </div>
 
                         {/*  Nav */}

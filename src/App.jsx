@@ -12,10 +12,11 @@ import Login from './components/Login';
 import Signup from './components/signup/Signup';
 import Welcome from './components/Welcome.jsx';
 import Profile from './components/profile/Profile'
-import Chat from './components/chatRoom/Chat';
+import Feed from './components/Feed';
 import ChatRoom from './components/chatRoom/ChatRoom.jsx';
 import PasswordResetRequest from './components/PasswordResetRequest';
-import PasswordReset from './components/PasswordReset'
+import PasswordReset from './components/PasswordReset';
+import Post from './components/post/Post';
 
 
 
@@ -184,10 +185,12 @@ const App = () => {
           <Route exact path='/login' element={<Login  userStatus={userStatus} />} />
           <Route exact path='/welcome' element={<Welcome  userStatus={userStatus} />} />
           <Route exact path='/profile' element={<Profile  userStatus={userStatus} />} />
+          <Route exact path='/feed' element={<Feed userStatus={userStatus} />} />
           <Route exact path='/chat/room/:room/' element={<ChatRoom userStatus={userStatus} />} />
           <Route exact path="/chat" element={<Lobby userStatus={userStatus} />} />
           <Route exact path='/passwordResetRequest' element={<PasswordResetRequest /> }/>
           <Route exact path='/passwordReset/:token' element={<PasswordReset />} />
+          <Route exact path='/post/:id' element={<Post />} />
         </Routes>
       </>
     )
