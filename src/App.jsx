@@ -17,6 +17,7 @@ import ChatRoom from './components/chatRoom/ChatRoom.jsx';
 import PasswordResetRequest from './components/PasswordResetRequest';
 import PasswordReset from './components/PasswordReset';
 import Post from './components/post/Post';
+import NewPost from './components/post/NewPost.jsx';
 
 
 
@@ -191,6 +192,7 @@ const App = () => {
           <Route exact path='/passwordResetRequest' element={<PasswordResetRequest /> }/>
           <Route exact path='/passwordReset/:token' element={<PasswordReset />} />
           <Route exact path='/post/:id' element={<Post />} />
+          <Route exact path='/post/newPost/:id' element={<NewPost />} />
         </Routes>
       </>
     )
