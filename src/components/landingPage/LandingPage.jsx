@@ -4,18 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie'
 // import CookieBanner from "../CookieBanner";  // Update the path accordingly
 // import PageHead from "../PageHead";
-import GuestHeader from "../headers/GuestHeader";
+import Header from "../headers/Header";
 import Footer from "../footers/Footer";
 import axios from '/src/utils/axiosConfig';
 import RulesModal from "../modals/RulesModal";
 import NavBar from "../navBar/NavBar";
 import '../modals/modals.css';
 
-const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies, message }) => {
-
+const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies, message, userStatus, socketConnected }) => {
+    const [ data, setData] = useState(null);
     const [ isRulesModalOpen, setIsRulesModalOpen ] = useState(false);
     const [ modalRoute, setModalRoute ] = useState('')
-    const [cookies, setCookie, removeCookie] = useCookies(['rulesCookie', 'consentCookie']);
+    const [ cookies, setCookie, removeCookie ] = useCookies(['rulesCookie', 'consentCookie']);
     const [ isCheckboxChecked, setIsCheckboxChecked ] = useState(document.cookie.includes('rulesCookie=true'));
     const navigate = useNavigate();
     
@@ -67,7 +67,9 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies,
             setModalRoute(route);
         } else {
             console.log("RUNNING THE ELSE", route)
-            navigate(route);
+            // navigate(route);
+            window.location.href = `${route}`;
+
         }
     }
 
@@ -88,7 +90,7 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies,
           ignore = true;
           };
        
-    }, [acceptedCookies]);
+    }, [acceptedCookies, socketConnected]);
 
     useEffect(() => {
         console.log("Simple Check LandingPage mounted");
@@ -104,6 +106,8 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies,
                     withCredentials: true,
                 });
                 console.log('Request URL:', response.config.url);
+
+                setData(response.data)
 
             console.log('Data from server:', response.data);
         } catch (error) {
@@ -126,7 +130,7 @@ const LandingPage = ({ acceptedCookies, setAcceptedCookies, handleRemoveCookies,
             )}
 
         
-            <GuestHeader />
+            <Header data={data} />
         
     
             {/* Intro */}

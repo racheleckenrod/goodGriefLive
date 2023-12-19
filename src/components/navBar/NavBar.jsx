@@ -103,7 +103,7 @@ const NavBar = ({ data, handleOpenModal, handleLogout }) => {
                     {/* </li> */}
                 </ul>
             </nav>
-            <NavPanel data={data} />
+            <NavPanel data={data} handleLogout={handleLogout} />
         </div>
     )
 };

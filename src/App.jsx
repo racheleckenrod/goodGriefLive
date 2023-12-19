@@ -29,7 +29,7 @@ const App = () => {
   const [acceptedCookies, setAcceptedCookies] = useState(document.cookie.includes('consentCookie=true'));
   const socket = useSocket();
   const [agreedToRules, setAgreedToRules] = useState(false);
-  const [userStatus, setUserStatus] = useState('guest')
+  const [userStatus, setUserStatus] = useState('Guest')
 
 
   useEffect(() => {
@@ -169,7 +169,7 @@ const App = () => {
       
       {<CookieBanner setAcceptedCookies={setAcceptedCookies} setMessage={setMessage} />}
       <Routes>
-        <Route exact path="/" element={<LandingPage userStatus={userStatus} acceptedCookies={acceptedCookies} setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} handleRemoveCookies={handleRemoveCookies} message={message} />} />
+        <Route exact path="/" element={<LandingPage socketConnected={socket.connected} userStatus={userStatus} acceptedCookies={acceptedCookies} setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} handleRemoveCookies={handleRemoveCookies} message={message} />} />
         <Route exact path="/privacyPolicy" element={<PrivacyPolicy acceptedCookies={acceptedCookies} handleRemoveCookies={handleRemoveCookies} handleConsent={handleConsent} message={message} />} />
       </Routes>
     </>
@@ -180,7 +180,7 @@ const App = () => {
   return (
       <>
         <Routes>
-          <Route exact path="/" element={<LandingPage acceptedCookies={acceptedCookies} setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} handleRemoveCookies={handleRemoveCookies} message={message} />} />
+          <Route exact path="/" element={<LandingPage socketConnected={socket.connected} acceptedCookies={acceptedCookies} setAcceptedCookies={setAcceptedCookies} setAgreedToRules={setAgreedToRules} handleRemoveCookies={handleRemoveCookies} message={message} />} />
           <Route exact path="/privacyPolicy" element={<PrivacyPolicy acceptedCookies={acceptedCookies} handleRemoveCookies={handleRemoveCookies} message={message} />} />
           <Route exact path="/signup" element={<Signup  userStatus={userStatus} />} />
           <Route exact path='/login' element={<Login  userStatus={userStatus} />} />

@@ -66,7 +66,7 @@ const Feed = () => {
                                     <p>{ post.caption }</p>
                                     <h2 className="">Post Likes: {post.likes}</h2>
                                     <div className="">
-                                        <a href="/profile/<%= `${posts[i].user._id}`%>">Posted by: {post.user.userName}</a>
+                                        <a href={`/profile/${post.user._id}`} >Posted by: {post.user.userName}</a>
                                         <p>On: {new Date(post.createdAt).toLocaleString( data.userLang, {timeZone: data.userTimeZone } )}</p>
                                         {/* </p> */}
                                     </div>

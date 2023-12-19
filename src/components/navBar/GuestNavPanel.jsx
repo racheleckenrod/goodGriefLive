@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 
 
-const GuestNavPanel = () => {
+const GuestNavPanel = ({ handleLogout }) => {
     const [isNavOpen, setIsNavOpen] = useState(false);
 
     const toggleNav = () => {
@@ -93,10 +93,12 @@ const GuestNavPanel = () => {
                             <span className="indent-1"></span>
                             Sign Up
                         </a>
-                    <a className="link depth-0" href="/logout" style={{ WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)' }}>
+                    <a className="link depth-0"  onClick={handleLogout} style={{ WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)', cursor: 'pointer' }}>
                         <span className="indent-0"></span>
                         Logout
                     </a>
+                    {/* <li><a style={{ cursor: 'pointer', }} onClick={handleLogout}>Logout</a></li> */}
+
                 </nav>
             </div>
         </>

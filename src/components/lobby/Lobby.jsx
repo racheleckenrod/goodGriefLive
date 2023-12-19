@@ -6,7 +6,7 @@ import Chat from '/src/components/chatRoom/Chat'
 import LoginModal from '../modals/LoginModal';
 // import '/src/assets/js/script.js';
 
-const Lobby = ({ userStatus }) => {
+const Lobby = ({ userStatus, userLang, userTimeZone }) => {
     const [data, setData] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [modalText, setModalText] = useState('You need to be logged in.');
@@ -81,9 +81,10 @@ const Lobby = ({ userStatus }) => {
     <>
         <div>
             <section className="homepage">
-		        <div id="page-wrapper">
+                <Header data={data} />
 
-			       <Header data={data} />
+		        <div id="page-wrapper">
+			      
                    <LoginModal isOpen={isOpen} onClose={handleCloseModal} />
             
                     { /* Highlights */}
@@ -93,36 +94,36 @@ const Lobby = ({ userStatus }) => {
 						    <div className="row aln-center">
 							    <div className="col-4 col-12-medium">
                                     <section className="highlight">
-                                        <a href="/post/{ `${data.posts[0]._id}`}" className="image featured"><img src= { data.posts[0].image } alt="most popular post" /></a>
-                                        <h3><a href="/post/{ `${data.posts[0]._id}`}">{ data.posts[0].title }</a></h3>
+                                        <a href={`/post/${data.posts[0]._id}`} className="image featured"><img src= { data.posts[0].image } alt="most popular post" /></a>
+                                        <h3><a href={`/post/${data.posts[0]._id}`}>{ data.posts[0].title }</a></h3>
                                         <p>{ data.posts[0].caption }</p>
                                         <p>Likes: { data.posts[0].likes }</p>
                                         <ul className="actions">
-                                            <li><a href="/post/{ `${data.posts[0]._id}`}" className="button style1 openModalButton" data-modal="comment">Comment</a></li>
+                                            <li><a href={`/post/${data.posts[0]._id}`} className="button style1 openModalButton" data-modal="comment">Comment</a></li>
                                         </ul>
                                     </section>
 							    </div>
                             
                                 <div className="col-4 col-12-medium">
                                     <section className="highlight">
-                                        <a href="/post/{ `${data.posts[1]._id}`}" className="image featured"><img src= { data.posts[1].image } alt="second most popular post" /></a>
-                                        <h3><a href="/post/{ `${data.posts[1]._id}`}">{ data.posts[1].title }</a></h3>
+                                        <a href={`/post/${data.posts[1]._id}`} className="image featured"><img src= { data.posts[1].image } alt="second most popular post" /></a>
+                                        <h3><a href={`/post/${data.posts[1]._id}`}>{ data.posts[1].title }</a></h3>
                                         <p>{ data.posts[1].caption }</p>
                                         <p>Likes: { data.posts[1].likes }</p>
                                         <ul className="actions">
-                                            <li><a href="/post/{ `${data.posts[1]._id}`}" className="button style1 openModalButton" data-modal="comment">Comment</a></li>
+                                            <li><a href={`/post/${data.posts[1]._id}`} className="button style1 openModalButton" data-modal="comment">Comment</a></li>
                                         </ul>
                                     </section>
                                 </div>
 
                                 <div className="col-4 col-12-medium">
                                     <section className="highlight">
-                                        <a href="/post/{ `${data.posts[2]._id}`}" className="image featured"><img src= { data.posts[2].image } alt="third most popular post" /></a>
-                                        <h3><a href="/post/{ `${data.posts[2]._id}`}">{ data.posts[2].title }</a></h3>
+                                        <a href={`/post/${data.posts[2]._id}`} className="image featured"><img src= { data.posts[2].image } alt="third most popular post" /></a>
+                                        <h3><a href={`/post/${data.posts[2]._id}`}>{ data.posts[2].title }</a></h3>
                                         <p>{ data.posts[2].caption }</p>
                                         <p>Likes: { data.posts[2].likes }</p>
                                         <ul className="actions">
-                                            <li><a href="/post/{ `${data.posts[2]._id}`}" className="button style1 openModalButton" data-modal="comment">Comment</a></li>
+                                            <li><a href={`/post/${data.posts[2]._id}`} className="button style1 openModalButton" data-modal="comment">Comment</a></li>
                                         </ul>
                                     </section>
                                 </div>

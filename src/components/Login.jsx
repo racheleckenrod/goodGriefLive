@@ -1,11 +1,11 @@
 import { React, useState } from "react";
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import GuestHeader from "./headers/GuestHeader";
+import Header from "./headers/Header";
 import Footer from "./footers/Footer";
 import axios from "../utils/axiosConfig";
 
 const Login = () => {
-
+    const [data, setData] = useState('');
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: "",
@@ -49,7 +49,7 @@ const Login = () => {
 
     return (
         <>
-        <GuestHeader />
+        <Header data={data} />
 
         <section id="main" className="wrapper style2">
             <div className="title">Login</div>

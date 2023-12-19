@@ -1,10 +1,43 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 
-const NavPanel = ({ data }) => {
+const NavPanel = ({ data, handleLogout  }) => {
+    const [isNavOpen, setIsNavOpen] = useState(false);
+
+    const toggleNav = () => {
+        setIsNavOpen(!isNavOpen);
+        console.log('Nav Toggled');
+        if (!isNavOpen) {
+            document.body.classList.add('navPanel-visible');
+        } else {
+            document.body.classList.remove('navPanel-visible');
+        }
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (isNavOpen && !event.target.closest('#navPanel') && !event.target.closest('#titleBar')) {
+                setIsNavOpen(false);
+                document.body.classList.remove('navPanel-visible');
+            }
+        };
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside)
+        };
+    }, [isNavOpen])
+
 
     return (
         <>
+            <div id="titleBar">
+                <a href="#navPanel" className={`toggle`} onClick={toggleNav}></a>
+                <span className="title">
+                    <a href="/">Live Grief Support</a>
+                </span>
+            </div>
             <div id="navPanel">
+            
                 <nav>
                     <a className="link depth-0" href="/chat" style={{WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)'}}>
                         <span className="indent-0"></span>
@@ -82,7 +115,7 @@ const NavPanel = ({ data }) => {
                         <span className="indent-0"></span>
                         Community
                     </a>
-                    <a className="link depth-0" href="/logout" style={{WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)'}}>
+                    <a className="link depth-0"  onClick={handleLogout} style={{WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',  cursor: 'pointer'}}>
                         <span className="indent-0"></span>
                         Logout
                     </a>

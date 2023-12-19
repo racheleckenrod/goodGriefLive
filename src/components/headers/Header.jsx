@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from '/src/utils/axiosConfig';
 import { useNavigate } from 'react-router-dom';
-import NavPanel from '../navBar/NavPanel';
+// import NavPanel from '../navBar/NavPanel';
 import NavBar from '../navBar/NavBar';
+import GuestNavBar from '../navBar/GuestNavBar';
 
 
 const Header = ({ data }) => {
@@ -11,6 +12,7 @@ console.log(data)
 const navigate = useNavigate();
 
 const handleLogout = async () => {
+    console.log("handle logout clicked")
 
     try {
         const response = await axios.get('/logout');
@@ -31,7 +33,7 @@ const handleLogout = async () => {
 
         <div>
             {/* <PageHead /> */}
-            <div className="">
+            {/* <div className=""> */}
                 {/* <div id="page-wrapper"> */}
 
 			        {/* Header */}
@@ -43,11 +45,20 @@ const handleLogout = async () => {
                         
                             <p>A special place to honor our loved ones</p>
                             <p>Welcome to Good Grief Live.</p>
-                            <p>We are glad you are here, { data.user.userName }.</p>
+                            {data && data.userName ? (
+                                <p>We are glad you are here, { data.userName }.</p>
+                            ) : (
+                                <p>We are glad you are here.</p>
+                            )}
+                            
                         </div>
 
                         {/*  Nav */}
-                        <NavBar data={data} handleLogout={handleLogout} />
+                        {data && data.user && data.user.userName ? (
+                            <NavBar data={data} handleLogout={handleLogout} />
+                        ) : (
+                            <GuestNavBar  handleLogout={handleLogout} />
+                        )}
                         {/* <nav id="nav">
                             <ul>
                                 <li className="current"><a href="/chat">the Lobby</a></li>
@@ -83,8 +94,8 @@ const handleLogout = async () => {
 				    </section>
                 {/* <NavPanel data={data}/> */}
                 {/* </div> */}
-            </div>
-        </div>
+            {/* </div> */}
+        </div> 
     );
 };
 

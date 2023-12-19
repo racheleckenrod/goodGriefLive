@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import GuestNavPanel from "./GuestNavPanel";
 
-const GuestNavBar = () => {
+const GuestNavBar = ({ handleLogout }) => {
     const [activeDropdown, setActiveDropdown] = useState(null);
 
     const handleMouseEnter = (dropdownId) => {
@@ -75,11 +75,11 @@ const GuestNavBar = () => {
                         )}
                     </li>
                     <li style={{ whiteSpace: 'nowrap' }}>
-                        <a style={{ cursor: 'pointer', }}>Logout</a>
+                        <a style={{ cursor: 'pointer', }} onClick={handleLogout}>Logout</a>
                     </li>
                 </ul>
             </nav>
-            <GuestNavPanel />
+            <GuestNavPanel handleLogout={handleLogout} />
         </div>
     )
 };
