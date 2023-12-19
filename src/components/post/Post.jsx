@@ -138,7 +138,7 @@ const Post = ({ }) => {
 
     return (
         <>
-        <Header data={data} />
+        <Header data={data.user} />
 
 
             <section id="intro" className="wrapper style3">

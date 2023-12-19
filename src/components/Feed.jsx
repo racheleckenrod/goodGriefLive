@@ -60,7 +60,7 @@ const Feed = () => {
                                         <a href={`/post/${post._id}`}>{ post.title }</a>
                                     </h3>
                                     <a href={`/post/${post._id}`}  className="image featured">
-                                        <img src={ post.image } alt={ post.title } />
+                                        <img src={ post.image } alt={ post.title }  loading="lazy" quality="auto:low"/>
                                     </a>
                                    
                                     <p>{ post.caption }</p>

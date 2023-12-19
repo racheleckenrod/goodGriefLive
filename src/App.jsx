@@ -18,6 +18,7 @@ import PasswordResetRequest from './components/PasswordResetRequest';
 import PasswordReset from './components/PasswordReset';
 import Post from './components/post/Post';
 import NewPost from './components/post/NewPost.jsx';
+import ShowProfile from './components/profile/ShowProfile.jsx';
 
 
 
@@ -185,6 +186,7 @@ const App = () => {
           <Route exact path="/signup" element={<Signup  userStatus={userStatus} />} />
           <Route exact path='/login' element={<Login  userStatus={userStatus} />} />
           <Route exact path='/welcome' element={<Welcome  userStatus={userStatus} />} />
+          <Route exact path='/profile/:id' element={<ShowProfile />} />
           <Route exact path='/profile' element={<Profile  userStatus={userStatus} />} />
           <Route exact path='/feed' element={<Feed userStatus={userStatus} />} />
           <Route exact path='/chat/room/:room/' element={<ChatRoom userStatus={userStatus} />} />
@@ -193,6 +195,7 @@ const App = () => {
           <Route exact path='/passwordReset/:token' element={<PasswordReset />} />
           <Route exact path='/post/:id' element={<Post />} />
           <Route exact path='/post/newPost/:id' element={<NewPost />} />
+         
         </Routes>
       </>
     )
