@@ -4,7 +4,7 @@ import axios from '../../utils/axiosConfig';
 import Header from '/src/components/headers/Header';
 import Footer from '/src/components/footers/Footer';
 
-const Post = ({ }) => {
+const Post = () => {
 
     const [data, setData] = useState(null);
     const { id } = useParams();

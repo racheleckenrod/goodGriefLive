@@ -85,20 +85,20 @@ const ShowProfile = () => {
                                                     <header>
                                                         <h2>{ data.posts[data.posts.length-1].title }</h2>
                                                     </header>
-                                                    <a href={`/post/${data.posts[data.posts.length-1]._id}`} className="image featured"><img src="{ posts[posts.length-1].image }" alt="latest post" /></a>
+                                                    <a href={`/post/${data.posts[data.posts.length-1]._id}`} className="image featured"><img src={ data.posts[data.posts.length-1].image } alt="latest post" /></a>
                                                     <p>{ data.posts[data.posts.length-1].caption }</p>
                                                     <a href={`/post/${ data.posts[data.posts.length-1]._id }`} className="button style1">See Post</a>
                                                 </section>
                                             </div>
                                         )}
 
-                                        { data.posts.length > 2 && (
+                                        { data.posts.length > 1 && (
                                             <div className="col-6 col-12-small">
                                                 <section className="box">
                                                     <header>
                                                         <h2>{ data.posts[data.posts.length-2].title }</h2>
                                                     </header>
-                                                    <a href={`/post/${ data.posts[data.posts.length-2]._id }`} className="image featured"><img src="{ posts[posts.length-2].image }" alt="second latest post" /></a>
+                                                    <a href={`/post/${ data.posts[data.posts.length-2]._id }`} className="image featured"><img src={ data.posts[data.posts.length-2].image } alt="second latest post" /></a>
                                                     <p>{ data.posts[data.posts.length-2].caption }</p>
                                                     <a href={`/post/${ data.posts[data.posts.length-2]._id }`} className="button style1">See Post</a>
                                                 </section>
@@ -235,7 +235,7 @@ const ShowProfile = () => {
                             </div>
                             <div className="mt-5">
                                 <h2>Add a post</h2>
-                                <form action="/post/createPost" enctype="multipart/form-data"       method="POST"
+                                <form action="/post/createPost" encType="multipart/form-data"       method="POST"
                                 >
                                     <div className="mb-3">
                                         <label htmlFor="title" className="form-label">Title</label>
