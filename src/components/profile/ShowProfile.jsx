@@ -50,7 +50,7 @@ const ShowProfile = () => {
 
     return (
         <>
-            <Header data={data.user} />
+            <Header data={data} />
 
             <section id="main" className="wrapper style2">
                 <div className="title">Welcome to { data.chatUser.userName}'s Profile, { data.user.userName }</div>
@@ -153,9 +153,10 @@ const ShowProfile = () => {
                                             )}
                                         </li>
                                     </ul>
-                                    {/* <a href="#" className="button style1">Archives</a> */}
                                 </section>
                                 <section className="box">
+                                <a href="#" className="button style1">Archives</a>
+
                                     <header>
                                         <h2>My Story Evolves Over Time</h2>
                                     </header>

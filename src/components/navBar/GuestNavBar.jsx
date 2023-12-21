@@ -33,7 +33,7 @@ const GuestNavBar = ({ handleLogout }) => {
                         )} 
                     </li>
                     <li className="opener" onMouseEnter={() => handleMouseEnter('Profile')} onMouseLeave={handleMouseLeave} style={{userSelect: 'none', cursor: 'pointer', whiteSpace: 'nowrap', opacity: 1 }}>
-                        <a href="#" className="loginReqRoute" datamodal="profile">Profile</a>
+                        <a href="/profile" className="loginReqRoute" datamodal="profile">Profile</a>
                         {activeDropdown === 'Profile' && (
 
                         <ul className={`dropotron level-0 center `}  style={{ userSelect: 'none', position: 'absolute', zIndex: 1000, left: '381.688px', top: '56px', opacity: 1, display: 'block', }}>
