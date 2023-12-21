@@ -19,6 +19,7 @@ import PasswordReset from './components/PasswordReset';
 import Post from './components/post/Post';
 import NewPost from './components/post/NewPost.jsx';
 import ShowProfile from './components/profile/ShowProfile.jsx';
+import EditPost from './components/post/EditPost.jsx';
 
 
 
@@ -195,6 +196,7 @@ const App = () => {
           <Route exact path='/passwordReset/:token' element={<PasswordReset />} />
           <Route exact path='/post/:id' element={<Post />} />
           <Route exact path='/post/newPost/:id' element={<NewPost />} />
+          <Route exact path='/post/editPost/:id' element={<EditPost />} />
          
         </Routes>
       </>

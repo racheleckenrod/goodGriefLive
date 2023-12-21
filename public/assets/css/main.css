@@ -176,6 +176,10 @@ input, select, textarea {
 
 /* Container */
 
+	.likes-container {
+		margin-top: 5px;
+	}
+
 	.container {
 		margin: 0 auto;
 		max-width: 100%;

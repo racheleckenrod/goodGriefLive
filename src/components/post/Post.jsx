@@ -1,5 +1,5 @@
 import { React, useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from '../../utils/axiosConfig';
 import Header from '/src/components/headers/Header';
 import Footer from '/src/components/footers/Footer';
@@ -17,7 +17,7 @@ const Post = () => {
         // e.preventDefault();
 
         try {
-            const response = await axios.put(`/post/likePost/${data.post._id}`);
+            const response = await axios.put(`/post/likePost/${data.post.id}`);
 
             if (response.status === 200) {
                 console.log('Post liked successfully. Likes=', response.data.post.likes);
@@ -135,18 +135,19 @@ const Post = () => {
         return <div>Loading...</div>;
     }
 
-
+    console.log("data.post._id=",data.post._id)
     return (
         <>
         <Header data={data.user} />
 
 
             <section id="intro" className="wrapper style3">
-                <div className="title">{ data.post.title }<br />
+                <div className="title">{ data.post.title }</div>
+                <p className= "style1">
                     Posted By:{ data.post.user.userName }
-                </div>
+                </p>
 
-                <div className="container">
+                {/* <div className="container"> */}
 
                     <div className="container">
                         <div className="row justify-content-center mt-5">
@@ -165,6 +166,7 @@ const Post = () => {
                                         <button className="button style1" type="submit"><i className="fa fa-heart"></i>post</button>
                                     </form>
                                     <h3 className="col-3">Likes: { data.post.likes }</h3>
+
                                     {data.post.user.id === data.user.id && (
                                     <>
                                         <form
@@ -174,13 +176,9 @@ const Post = () => {
                                         >
                                             <button className="button style1" type="submit"><i className="fa fa-trash"></i>post</button>
                                         </form>
-                                        <form
-                                        action={`/post/editPostPage/${ data.post.id }`}
-                                    
-                                        className="col-3"
-                                        >
-                                            <button className="button style1" type="submit">edit</button>
-                                        </form>
+
+                                        <Link to={`/post/editPost/${ data.post._id }`} className="button style1">edit</Link>
+                                        
 
                                     </>
                                 )}
@@ -252,7 +250,7 @@ const Post = () => {
                             <div className=""></div>
                         </div>
                     </div>
-                </div>
+                {/* </div> */}
 
             </div>
         </section>

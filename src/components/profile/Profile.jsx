@@ -116,57 +116,68 @@ const Profile = () => {
                                     <a href="/editProfile" className="button style1">Edit Profile</a>
                                 </section>
                                 <section className="box">
-                                    <header>
+                                    <header  style={{marginTop: "2em"}}>
                                     <h2>My Most Liked Posts</h2>
                                     </header>
-                                    <ul className="style2">
-                                        <li>
-                                            { data.posts.length > 0 ? (
-                                            <article className="box post-excerpt">
-                                            <a href={`/post/{ data.likedPosts[0]._id }`} className="image left">
-                                                <img src={ data.likedPosts[0].image } alt="Most liked Post" />
-                                            </a>
-                                            <h3><a href={`/post/{ data.likedPosts[0]._id }`} >{ data.likedPosts[0].title}</a></h3>
-                                            <p>{ data.likedPosts[0].caption }</p>
-                                            </article>
-                                            ) : null }
-                                        </li>
-                                        <li>
-                                            { data.posts.length > 1 ? (
-                                            <article className="box post-excerpt">
-                                            <a href={`/post/{ data.likedPosts[1]._id }`} className="image left">
-                                                <img src={ data.likedPosts[1].image } alt="second most liked post" />
-                                            </a>
-                                            <h3><a href={`/post/{ data.likedPosts[1]._id }`}>{ data.likedPosts[1].title}</a></h3>
-                                            <p>{ data.likedPosts[1].caption }</p>
-                                            </article>
-                                            ) : null }
-                                        </li>
-                                        <li>
-                                            { data.posts.length > 2 ? (
-                                            <article className="box post-excerpt">
-                                            <a href={`/post/{ data.likedPosts[2]._id }`} className="image left">
-                                                <img src={ data.likedPosts[2].image } alt="Third most liked Post" />
-                                            </a>
-                                            <h3><a href={`/post/{ data.likedPosts[2]._id }`}>{ data.likedPosts[2].title}</a></h3>
-                                            <p>{ data.likedPosts[2].caption }</p>
-                                            </article>
-                                            ) : null }
-                                        </li>
-                                    </ul>
-                                    <a href="#" className="button style1">Archives</a>
-                                </section>
-                                <section className="box">
-                                    <header>
-                                    <h2>My Story Evolves Over Time</h2>
-                                    </header>
-                                    <ul className="style3">
-                                        {data.posts.map((post) => (
-                                            <li key={post._id}>
-                                                <a href={`/post/${post._id}`}>{ post.title }</a>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                        <ul className="style2">
+                                            {data.posts.length > 0 && (
+                                                <li className=''>
+                                                    <article className="box post-excerpt">
+                                                        <div className="image left">
+                                                            <a href={`/post/${ data.likedPosts[0]._id }`} className="">
+                                                                <img style={{marginBottom: '1em'}} src={ data.likedPosts[0].image } alt="most liked post" />
+                                                            </a>
+                                                            <span>Likes: {data.likedPosts[0].likes}</span>
+                                                        </div>
+                                                        <div>
+                                                            <h3><a href={`/post/${ data.likedPosts[0]._id }`}>{ data.likedPosts[0].title}</a></h3>
+                                                            <p>{ data.likedPosts[0].caption }</p>
+                                                        </div>                                                        
+                                                    </article>
+                                                </li>
+                                            )}
+
+                                            <div style={{ clear: 'both' }}></div>
+
+                                            {data.posts.length > 1 && (
+                                                <li className=''>
+                                                    <article className="box post-excerpt">
+                                                        <div className="image left">
+                                                            <a href={`/post/${ data.likedPosts[1]._id }`} className="">
+                                                                <img style={{marginBottom: "1em"}} src={ data.likedPosts[1].image } alt="second most liked post" />
+                                                            </a>
+                                                            <span>Likes: {data.likedPosts[1].likes}</span>
+                                                        </div>
+                                                        <div>
+                                                            <h3><a href={`/post/${ data.likedPosts[1]._id }`}>{ data.likedPosts[1].title}</a></h3>
+                                                            <p>{ data.likedPosts[1].caption }</p>
+                                                        </div>
+                                                    </article>
+                                                </li>
+                                            )}
+
+                                            <div style={{ clear: 'both' }}></div>
+
+                                            { data.posts.length > 2 && (
+                                                <li>
+                                                    <article className="box post-excerpt">
+                                                        <div className="image left">
+                                                            <a href={`/post/${ data.likedPosts[2]._id }`} className="image left">
+                                                                <img  style={{marginBottom: "1em"}} src={ data.likedPosts[2].image } alt="third most lked post" />
+                                                            </a>
+                                                            <span>Likes: {data.likedPosts[2].likes}</span>
+                                                        </div>
+                                                        <div>
+                                                            <h3><a href={`/post/${ data.likedPosts[2]._id }`}>{ data.likedPosts[2].title}</a></h3>
+                                                            <p>{ data.likedPosts[2].caption }</p>
+                                                        </div>
+                                                    </article>
+                                                </li>
+                                            )}
+
+                                            <div style={{ clear: 'both' }}></div>
+
+                                        </ul>
                                 </section>
                             </div>
                         </div>
