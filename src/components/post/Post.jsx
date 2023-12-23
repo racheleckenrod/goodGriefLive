@@ -9,7 +9,7 @@ const Post = () => {
     const [data, setData] = useState(null);
     const { id } = useParams();
     const encodedId = encodeURIComponent(id)
-    console.log("id=", id)
+    console.log("id=", id )
     const commentFormRef = useRef(null);
     const commentInputRef = useRef(null);
 
@@ -17,7 +17,7 @@ const Post = () => {
         // e.preventDefault();
 
         try {
-            const response = await axios.put(`/post/likePost/${data.post.id}`);
+            const response = await axios.put(`/post/likePost/${data.post._id}`);
 
             if (response.status === 200) {
                 console.log('Post liked successfully. Likes=', response.data.post.likes);
@@ -135,7 +135,10 @@ const Post = () => {
         return <div>Loading...</div>;
     }
 
-    console.log("data.post._id=",data.post._id)
+    console.log("data.post._id=", data.post._id,  data.post.user._id, data.user._id 
+                                  
+    )
+
     return (
         <>
         <Header data={data.user} />
@@ -167,7 +170,7 @@ const Post = () => {
                                     </form>
                                     <h3 className="col-3">Likes: { data.post.likes }</h3>
 
-                                    {data.post.user.id === data.user.id && (
+                                    {data.post.user._id === data.user._id && (
                                     <>
                                         <form
                                         action={`/post/deletePost/${ data.post.id }?_method=DELETE`}

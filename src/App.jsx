@@ -20,6 +20,7 @@ import Post from './components/post/Post';
 import NewPost from './components/post/NewPost.jsx';
 import ShowProfile from './components/profile/ShowProfile.jsx';
 import EditPost from './components/post/EditPost.jsx';
+import EditProfile from './components/profile/EditProfile.jsx';
 
 
 
@@ -197,6 +198,8 @@ const App = () => {
           <Route exact path='/post/:id' element={<Post />} />
           <Route exact path='/post/newPost/:id' element={<NewPost />} />
           <Route exact path='/post/editPost/:id' element={<EditPost />} />
+          <Route exact path='/editProfile/:id' element={<EditProfile />} />
+          <Route exact path='/editProfile' element={<EditProfile />} />
          
         </Routes>
       </>

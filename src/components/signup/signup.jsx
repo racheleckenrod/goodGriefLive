@@ -53,7 +53,7 @@ const Signup = () => {
         }
 
         try {
-            const response = await axios.post("/api/signup", formData, {
+            const response = await axios.post("/signup", formData, {
                 withCredentials: true,
             });
             

@@ -179,6 +179,21 @@ const Profile = () => {
 
                                         </ul>
                                 </section>
+                                <section className="box">
+                                    <a href="#" className="button style1">Archives</a>
+
+                                    <header>
+                                        <h2>{data.user.userName}'s Story Evolves Over Time</h2>
+                                    </header>
+                                    <ul className="style3">
+                                        { data.posts.map((post, i) => (
+                                        <li key={i}>
+                                            <a href={`/post/${post._id}`}>{ post.title }</a>
+                                        </li>
+                                        ))}
+                                    </ul>
+                        
+                                </section>
                             </div>
                         </div>
                     </div>

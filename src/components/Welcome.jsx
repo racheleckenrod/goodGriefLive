@@ -12,7 +12,7 @@ const Welcome = () => {
         const fetchData = async () => {
             try {
                 // make a GET request to the server endpoint
-                const response = await axios.get('/api/welcome', {
+                const response = await axios.get('/welcome', {
                     withCredentials: true,
                 });
                 

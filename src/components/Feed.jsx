@@ -1,10 +1,56 @@
 import { React, useEffect, useState } from 'react';
 import Header from './headers/Header';
 import Footer from './footers/Footer';
+import CommentModal from './modals/CommentModal';
 import axios from '../utils/axiosConfig';
 
 const Feed = () => {
     const [data, setData] = useState(null);
+    const [postId, setPostId] = useState(null);
+    const [showCommentModal, setShowCommentModal] = useState(false);
+
+    const handleCommentButtonClick = (postId) => {
+        console.log("clicked comment");
+        setPostId(postId)
+        setShowCommentModal(true);
+    };
+
+    const handleModalClose = (newComment) => {
+        setShowCommentModal(false);
+
+        if (newComment) {
+            setData((prevData) => ({
+                ...prevData,
+                comments: [...prevData.comments, newComment],
+            }));
+        }
+
+    };
+
+  
+
+    const handlePostLike = async (postId) => {
+        // e.preventDefault();
+
+        try {
+            const response = await axios.put(`/post/likePost/${postId}`);
+
+            if (response.status === 200) {
+                console.log('Post liked successfully. Likes=', response.data.post.likes);
+
+                // const updatedData = await axios.get(`/post/${id}/`);
+
+                setData((prevData) => ({ ...prevData, posts: prevData.posts.map((post) =>
+                    post._id === postId ? { ...post, likes: response.data.post.likes } : post
+                    ),
+                }));
+            } else {
+                console.error('Failed to like post.');
+            }
+        } catch (error) {
+            console.error('Error during like post:', error);
+        }
+    };
 
 
     useEffect(() => {
@@ -92,16 +138,18 @@ const Feed = () => {
                                             </div>
                                     ))}
                                     <ul className="actions">
-                                        <li>
-                                            <form
-                                        style={{ marginBottom: 0 }}
-                                        action={`/post/likePostFeed/${post._id}?_method=PUT`}
-                                        method="POST"
-                                        >
-                                            <button className="button style1" type="submit">
+                                        <li>      
+                                            <button className="button style1" onClick={() => handlePostLike(post._id)}>
                                                 <i className="fa fa-heart"></i>like post
                                             </button>
-                                        </form>
+                                        </li>
+                                        <li>      
+                                            <button className="button style1" onClick={() => handleCommentButtonClick(post._id)}>
+                                                Add Comment
+                                            </button>
+                                            {showCommentModal && (
+                                                <CommentModal postId={postId} onClose={handleModalClose} />
+                                            )}
                                         </li>
                                         
                                         <li>
